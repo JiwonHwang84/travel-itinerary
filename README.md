@@ -1,30 +1,39 @@
 # travel-itinerary
 
-여행 일정 플래너 모음. HTML 단일 파일로 만들어 GitHub Pages로 호스팅합니다.
+단일 HTML 파일로 만든 정적 페이지를 GitHub Pages로 호스팅하는 저장소입니다.
+빌드 도구나 의존성 설치가 필요 없습니다.
 
-## 🌐 호스팅
+## 호스팅
 
-**https://jiwonhwang84.github.io/travel-itinerary/**
+https://jiwonhwang84.github.io/travel-itinerary/
+
+`main` 브랜치 루트를 그대로 배포합니다. push하면 1~2분 내에 반영됩니다.
 
 ## 구성
 
-| 경로 | 내용 |
+| 경로 | 설명 |
 |---|---|
-| `index.html` | **스페인 7박 8일** · 바르셀로나 & 세비야 (호스팅되는 메인 플래너) |
-| `archive/porto-3d4n.html` | 포르투 3박 4일 · 도루강 · 와이너리 · 아줄레주 |
-| `source/` | 작업용 원본 자료 |
+| `index.html` | 배포되는 페이지. 이 파일 하나에 마크업·CSS·스크립트가 모두 들어 있습니다 |
+| `archive/` | 이전 버전 보관 |
+| `source/` | 작업용 원본 파일 |
 
-## 업데이트 방법
+외부 리소스는 CDN에서 불러옵니다 — Leaflet(지도), Font Awesome(아이콘), Google Fonts.
+지도 타일 요청이 실패하면 대체 타일 서버로 순차 폴백하고, 모두 실패하면 안내 배너를 띄웁니다.
 
-`index.html`을 수정한 뒤 push하면 1~2분 내에 사이트에 반영됩니다.
+## 수정 방법
 
 ```bash
 git add index.html
-git commit -m "일정 업데이트"
+git commit -m "..."
 git push
 ```
 
-## 참고
+반영이 안 보이면 브라우저 강력 새로고침(`Cmd+Shift+R`).
 
-숙소 주소·투숙 일정이 담긴 CSV 등 개인정보 파일은 `.gitignore`로 제외되어 있습니다.
-공개 저장소이므로 예약번호·주소·연락처를 커밋하지 않도록 주의하세요.
+## 주의
+
+공개 저장소입니다. 주소·연락처·예약번호 등 개인정보가 담긴 파일은 커밋하지 마세요.
+`.gitignore`에 `*.csv`와 `.claude/`가 등록되어 있습니다.
+
+한 번 커밋한 파일은 나중에 삭제해도 커밋 이력에 남습니다. 실수로 올렸다면
+`.gitignore` 추가만으로는 부족하고, 이력에서 제거한 뒤 force push해야 합니다.
