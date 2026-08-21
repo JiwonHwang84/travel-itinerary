@@ -1,3 +1,7 @@
+# 개인정보 포함 자료 (숙소 주소·일정 등)
+source/스페인(Spain) 🇪🇸.csv
+*.csv
+
 # macOS
 .DS_Store
 ._*
