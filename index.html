@@ -1331,7 +1331,10 @@ const STAYS=[
 ];
 
 /* ═══════════ RENDER ═══════════ */
-let LANG = 0;                    // 0 = 한국어, 1 = English
+const TITLES = ["Jaydo in Spain 🇪🇸 · 바르셀로나 & 세비야 7박 8일",
+                "Jaydo in Spain 🇪🇸 · Barcelona & Seville, 8 days"];
+// ?lang=en 이 붙은 URL로 접속하면 영어로 시작합니다 (링크 공유용)
+let LANG = /^en/i.test(new URLSearchParams(location.search).get('lang') || '') ? 1 : 0;
 let activeDay = 1;
 let mapFilter = 'all';
 let foodFilter = 'all';
@@ -1766,13 +1769,21 @@ function renderStays(){
 }
 
 /* ── 언어 전환 ── */
-document.getElementById('langToggle').onclick=()=>{
-  LANG = LANG ? 0 : 1;
+// 언어를 적용하고 주소창의 ?lang= 도 함께 맞춥니다.
+// 그래서 지금 보고 있는 URL을 그대로 복사해 보내면 상대도 같은 언어로 열립니다.
+function setLang(l){
+  LANG = l;
   document.documentElement.lang = LANG ? 'en' : 'ko';
-  document.title = LANG ? "Jaydo in Spain 🇪🇸 · Barcelona & Seville, 8 days"
-                     : "Jaydo in Spain 🇪🇸 · 바르셀로나 & 세비야 7박 8일";
+  document.title = TITLES[LANG];
+  try{
+    const u = new URL(location.href);
+    if(LANG) u.searchParams.set('lang','en'); else u.searchParams.delete('lang');
+    history.replaceState(null, '', u);   // 히스토리를 쌓지 않아 뒤로가기가 지저분해지지 않습니다
+  }catch(e){}                            // file:// 로 열었을 때는 주소 변경이 막히므로 무시
   renderAll();
-};
+}
+
+document.getElementById('langToggle').onclick=()=>setLang(LANG ? 0 : 1);
 
 function renderAll(){
   renderTabs(); renderPanel(); renderMapFilters(); renderRouteBox();
@@ -1785,7 +1796,7 @@ function renderAll(){
   }
 }
 
-renderAll();
+setLang(LANG);   // renderAll() 포함 — URL의 ?lang= 을 첫 화면부터 반영합니다
 if (window.L && window.L.map) { initMap(); initFoodMap(); } else { mapUnavailable(); }
 </script>
 </body>
