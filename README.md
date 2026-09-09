@@ -28,4 +28,5 @@ git commit -m "..."
 git push
 ```
 
-반영이 안 보이면 브라우저 강력 새로고침(`Cmd+Shift+R)
+반영이 안 보이면 브라우저 강력 새로고침(`Cmd+Shift+R`).
+
