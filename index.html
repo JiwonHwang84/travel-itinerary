@@ -581,15 +581,6 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
         <p class="text-[11.5px] mb-3" style="color:var(--ink-3)" id="mapSchedHint"></p>
         <div id="mapSched"></div>
         <div id="dayRouteBox" class="mt-4"></div>
-        <details class="mt-4 text-[12.5px]" style="color:var(--ink-1)">
-          <summary style="cursor:pointer;color:var(--ink-2)"><span data-ko>지도 사용법</span><span data-en>How to use it</span></summary>
-          <ul class="space-y-2.5 mt-3">
-            <li class="flex gap-2.5"><span style="color:var(--gold)">①</span><span data-ko>핀 색 = 날짜. 숫자는 그날의 방문 순서입니다.</span><span data-en>Pin colour = day. The number is that day's stop order.</span></li>
-            <li class="flex gap-2.5"><span style="color:var(--gold)">🏠</span><span data-ko><b class="text-white">🏠 집은 숙소, 🚉 기차는 역, ✈️ 는 공항</b>입니다. 그날 실제로 쓰는 것만 뜹니다.</span><span data-en><b class="text-white">🏠 flats, 🚉 stations, ✈️ airports</b> — only the ones that day actually uses.</span></li>
-            <li class="flex gap-2.5"><span style="color:var(--gold)">②</span><span data-ko>핀을 누르면 영업시간·추천메뉴와 <b class="text-white">구글맵 열기</b> 버튼이 뜹니다.</span><span data-en>Tap a pin for hours, what to order, and an <b class="text-white">Open in Google Maps</b> button.</span></li>
-            <li class="flex gap-2.5"><span style="color:var(--gold)">③</span><span data-ko>옆 일정에서 항목을 누르면 지도가 이동하고 <b class="text-white">바로 아래에 상세</b>가 뜹니다.</span><span data-en>Tap a row in the schedule to fly the map and load the details just below.</span></li>
-          </ul>
-        </details>
       </div>
     </div>
     <div class="surface rounded-2xl p-5 md:p-6 mt-4">
@@ -1286,14 +1277,14 @@ const FOOD=[
 ];
 
 const CATS={
- tapas :{ko:"타파스 · 해산물", en:"Tapas & seafood",  hex:"#ff6b6b", ic:"fa-shrimp"},
- wine  :{ko:"와인바 · 맥주",   en:"Wine & beer bars", hex:"#9d7bff", ic:"fa-wine-glass"},
- meal  :{ko:"파에야 · 정식",   en:"Paella & mains",   hex:"#ffc94d", ic:"fa-utensils"},
- churros:{ko:"츄러스 · 초콜라테",en:"Churros & chocolate",hex:"#ff8c42", ic:"fa-mug-hot"},
- cafe  :{ko:"카페 · 디저트",   en:"Café & dessert",   hex:"#38e0d0", ic:"fa-cake-candles"},
- gelato:{ko:"젤라또 · 빙과",   en:"Gelato & frozen",  hex:"#ff5d8f", ic:"fa-ice-cream"},
- bakery:{ko:"베이커리 · 시장", en:"Bakery & market",  hex:"#2ee6a8", ic:"fa-bread-slice"},
- shop  :{ko:"쇼핑",            en:"Shopping",         hex:"#00b4d8", ic:"fa-bag-shopping"}
+ tapas :{ko:"타파스 · 해산물", en:"Tapas & seafood",  hex:"#ff6b6b", ic:"fa-shrimp", em:"🦐"},
+ wine  :{ko:"와인바 · 맥주",   en:"Wine & beer bars", hex:"#9d7bff", ic:"fa-wine-glass", em:"🍷"},
+ meal  :{ko:"파에야 · 정식",   en:"Paella & mains",   hex:"#ffc94d", ic:"fa-utensils", em:"🥘"},
+ churros:{ko:"츄러스 · 초콜라테",en:"Churros & chocolate",hex:"#ff8c42", ic:"fa-mug-hot", em:"🍫"},
+ cafe  :{ko:"카페 · 디저트",   en:"Café & dessert",   hex:"#38e0d0", ic:"fa-cake-candles", em:"🍰"},
+ gelato:{ko:"젤라또 · 빙과",   en:"Gelato & frozen",  hex:"#ff5d8f", ic:"fa-ice-cream", em:"🍨"},
+ bakery:{ko:"베이커리 · 시장", en:"Bakery & market",  hex:"#2ee6a8", ic:"fa-bread-slice", em:"🥖"},
+ shop  :{ko:"쇼핑",            en:"Shopping",         hex:"#00b4d8", ic:"fa-bag-shopping", em:"🛍️"}
 };
 const CITYLBL={BCN:["바셀","Barcelona"],SVQ:["세비야","Seville"]};
 
@@ -1738,8 +1729,7 @@ function renderMapSchedule(){
   if(!box) return;
   const days = mapFilter==='all' ? DAYS : DAYS.filter(d=>d.n===+mapFilter);
   hint.textContent = mapFilter==='all'
-    ? (LANG?'All 8 days — tap any row for details.':'8일 전체입니다. 항목을 누르면 오른쪽에 상세가 뜹니다.')
-    : (LANG?'Tap a row for details on the right.':'항목을 누르면 오른쪽에 상세가 뜹니다.');
+    ? (LANG?'All 8 days.':'8일 전체입니다.') : '';
   const dbox=document.getElementById('mapDetail');
   if(dbox) dbox.innerHTML = `<div class="dt-empty">${LANG?'Pick a place from the list.':'왼쪽 목록에서 장소를 누르세요.'}</div>`;
   SCHED=[];
@@ -1877,7 +1867,7 @@ function renderCatFilter(){
     btn('all', (LANG?'All':'전체')+` <span style="opacity:.6">${FOOD.length}</span>`, 'var(--gold)', catFilter==='all') +
     Object.entries(CATS).map(([k,c])=>{
       const n=FOOD.filter(f=>f.cat===k||(f.sub||[]).includes(k)).length;
-      return btn(k, `<i class="fa-solid ${c.ic} mr-1"></i>${c[LANG?'en':'ko']} <span style="opacity:.6">${n}</span>`, c.hex, catFilter===k);
+      return btn(k, `${c.em} ${c[LANG?'en':'ko']} <span style="opacity:.6">${n}</span>`, c.hex, catFilter===k);
     }).join('');
   document.querySelectorAll('#catFilter .daytab').forEach(b=>
     b.onclick=()=>{ catFilter=b.dataset.c; renderCatFilter(); renderGourmet(); renderFoodList(); });
@@ -1895,7 +1885,7 @@ function renderCatLegend(){
     const n=FOOD.filter(f=>f.cat===k||(f.sub||[]).includes(k)).length;
     return `<div class="flex items-center gap-2.5 text-[13px]">
       <span style="width:11px;height:11px;border-radius:50%;background:${c.hex};flex-shrink:0"></span>
-      <span style="color:var(--ink-1)">${c[LANG?'en':'ko']}</span>
+      <span style="color:var(--ink-1)">${c.em} ${c[LANG?'en':'ko']}</span>
       <span class="mono ml-2" style="color:var(--ink-3)">${n}</span></div>`;
   }).join('');
 }
@@ -1947,7 +1937,7 @@ function flyFood(i){
   const c=CATS[f.cat]||{hex:'var(--gold)'};
   const box=document.getElementById('foodDetail');
   if(box) box.innerHTML =
-    `<div class="dt-t" style="color:${c.hex}">${i+1}. ${c[LANG?'en':'ko'].toUpperCase()}</div>
+    `<div class="dt-t" style="color:${c.hex}">${i+1}. ${c.em} ${c[LANG?'en':'ko'].toUpperCase()}</div>
      <div class="dt-n">${t(f.n)}</div>
      <div class="dt-h">📍 ${t(f.a)}<br>🕐 ${t(f.h)}</div>
      ${f.o?`<div class="dt-tip">${t(f.o)}</div>`:''}
@@ -1956,9 +1946,8 @@ function flyFood(i){
 function renderFoodList(){
   const box=document.getElementById('foodList'); if(!box) return;
   const list=gourmetList();
-  document.getElementById('foodListHint').textContent = LANG
-    ? `${list.length} places — tap one for details on the right.`
-    : `${list.length}곳 — 누르면 오른쪽에 상세가 뜹니다.`;
+  document.getElementById('foodListHint').textContent =
+    LANG ? `${list.length} places` : `${list.length}곳`;
   const fbox=document.getElementById('foodDetail');
   if(fbox) fbox.innerHTML = `<div class="dt-empty">${LANG?'Pick a place from the list.':'왼쪽 목록에서 가게를 누르세요.'}</div>`;
   FLIST=list;
@@ -1987,7 +1976,7 @@ function drawFoodMap(){
               <span>${fidx}</span></div>`});
     flayer.addLayer(LF.marker([f.lat,f.lng],{icon}).bindPopup(
       `<div style="min-width:200px;max-width:260px">
-         <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:${c.hex}">${fidx}. ${c[LANG?'en':'ko'].toUpperCase()}</div>
+         <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:${c.hex}">${fidx}. ${c.em} ${c[LANG?'en':'ko'].toUpperCase()}</div>
          <div style="font-weight:700;font-size:14px;margin:3px 0 5px">${t(f.n)}</div>
          <div style="color:#8894ad;font-size:12px">🕐 ${t(f.h)}</div>
          <div style="color:#ffd980;font-size:12px;margin-top:6px">${t(f.o)}</div>
