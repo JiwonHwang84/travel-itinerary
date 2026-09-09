@@ -391,7 +391,8 @@ img,iframe,canvas{max-width:100%}
 .fl-city{font-family:"Space Grotesk",monospace;font-size:10.5px;letter-spacing:.1em;font-weight:700;
   padding:8px 0 4px;position:sticky;top:0;background:var(--bg-2);color:var(--ink-2)}
 .fl-row{display:flex;gap:8px;padding:5px 0;border-top:1px solid var(--line);align-items:baseline}
-.fl-dot{flex:0 0 8px;height:8px;border-radius:50%;margin-top:5px}
+.fl-no{flex:0 0 17px;height:17px;border-radius:5px;display:grid;place-items:center;
+  font-family:"Space Grotesk",monospace;font-size:9.5px;font-weight:900;color:#0a0e1a}
 .fl-n{flex:1;font-size:12.5px;line-height:1.45}
 .fl-n a{color:var(--ink-1);text-decoration:none;border-bottom:1px dotted var(--ink-3)}
 .fl-n a:hover{color:#fff;border-bottom-color:#fff}
@@ -657,6 +658,7 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
         <div class="flex gap-2.5"><span style="color:var(--gold)">🌮</span><span><b class="text-white">TKO Tacos</b> · <span data-ko>타코 — 카탈루냐 광장</span><span data-en>tacos, Plaça Catalunya</span></span></div>
         <div class="flex gap-2.5"><span style="color:var(--gold)">🇵🇹</span><span><b class="text-white">A Casa Portuguesa · Oporto Restaurante</b> · <span data-ko>포르투갈 — 그라시아 (에그타르트)</span><span data-en>Portuguese, Gràcia</span></span></div>
         <div class="flex gap-2.5"><span style="color:var(--gold)">🥗</span><span><b class="text-white">LITTLE FERN</b> · <span data-ko>브런치 — 포블레노우</span><span data-en>brunch, Poblenou</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🍽️</span><span><b class="text-white">Micu Maku</b> · <span data-ko>에이샴플레 — 매일 13:00–16:00 / 18:30–23:30. <b>일요일에도 여는</b> 몇 안 되는 곳 (09.20 저녁에 있었으나 Vinitus 로 교체)</span><span data-en>Eixample — one of the few places open Sunday; swapped out for Vinitus on the 20th</span></span></div>
         <div class="flex gap-2.5"><span style="color:var(--gold)">🍤</span><span><b class="text-white">시우다드 콘달 (Ciudad Condal)</b> · <span data-ko>타파스 — 람블라 데 카탈루냐. 늘 줄 서는 집</span><span data-en>tapas, Rambla de Catalunya — always a queue</span></span></div>
       </div>
       <p class="text-[12px] mt-4" style="color:var(--ink-3)"><span data-ko>※ 저장 목록의 마드리드 항목 6곳(Puerta del Sol · San Ginés 등)과 호텔 후보 3곳은 이번 여행 범위가 아니라 빼뒀습니다. <b>Lamaro Hotel(구 콜론 호텔) 루프탑바는 이미 09.21 22:15에 들어 있습니다.</b></span><span data-en>Six Madrid entries and three hotel candidates were left out. The Lamaro (ex-Colón) rooftop bar is already in the 21 Sep plan at 22:15.</span></p>
@@ -866,9 +868,10 @@ const DAYS=[
   d:["카사 아마트예르 1층 카페. 야외 파티오에서 카사 바트요 뒷면이 사람 없이 보입니다. 20:30 닫으니 여기가 마지막 타이밍입니다.","The café inside Casa Amatller — the courtyard looks straight at the back of Casa Batlló. It shuts at 20:30, so this is the last slot."]},
  {t:"19:55",k:"see",ic:"fa-dragon",n:["카사 바트요 · 외관 (땅거미)","Casa Batlló · exterior at dusk"],lat:41.3917,lng:2.164918,pid:"ChIJYUFLSe2ipBIRD04uni940kA",
   d:["✅ <b>예약 안 함 → 외관만.</b> 일몰이 20:10이라 조명이 막 들어오는 시간입니다 — 낮보다 이때가 낫습니다.","✅ <b>Not booked — exterior only.</b> Sunset is 20:10, so the lights come on while you are standing there. Better than daytime."]},
- {t:"20:30",k:"eat",ic:"fa-utensils",n:["저녁 · Micu Maku","Dinner · Micu Maku"],lat:41.3968,lng:2.1585,pid:"ChIJl6Wnf5CipBIRHqLcNGjZQCk",
-  hours:["매일 13:00–16:00 / 18:30–23:30","Daily 13:00–16:00 / 18:30–23:30"],
-  d:["일요일에도 여는 몇 안 되는 곳입니다.","One of the few places open on a Sunday."]},
+ {t:"20:30",k:"eat",ic:"fa-wine-glass",n:["저녁 · Vinitus","Dinner · Vinitus"],lat:41.3900261,lng:2.1640484,pid:"ChIJ3XUCr0K5Z0ARbKq1CqAKgJQ",
+  hours:["매일 11:00–01:00","Daily 11:00–01:00"],
+  d:["직접 <b>꿀대구 맛집</b>이라고 메모해두신 곳입니다. 대표 메뉴가 <b>bacalao con miel</b>(꿀 바른 대구)예요. 카탈루냐 최대급 와인 리스트를 갖춘 대형 타파스 바고, 매일 01:00까지라 일요일에도 확실히 엽니다.","You noted this one yourself as the honey-cod place — <b>bacalao con miel</b> is the signature. A big tapas bar with one of Catalonia's longest wine lists, open daily till 1 am."],
+  tip:["예약을 안 받는 대신 회전이 빠릅니다. <b>바 자리</b>를 노리세요 — 테이블보다 훨씬 빨리 앉습니다. 같이 시킬 것: navajas(면도조개), 하몽 크로케타, patatas bravas.","No reservations, but it turns over fast — go for the bar rather than a table. Also order navajas, ham croquettes and patatas bravas."]},
  {t:"22:15",k:"eat",ic:"fa-ice-cream",n:["디저트 · Bilmonte 젤라또","Dessert · Bilmonte gelato"],lat:41.3985,lng:2.1600,
   hours:["매일 09:00–01:00","Daily 09:00–01:00"]},
  {t:"22:45",k:"see",ic:"fa-chess-board",n:["카사 비센스 · 외관 (야경)","Casa Vicens · exterior at night"],lat:41.4033,lng:2.1512,pid:"ChIJZzHjKryipBIRKgHR0mmFXQE",
@@ -1884,11 +1887,12 @@ function renderFoodList(){
   document.getElementById('foodListHint').textContent = LANG
     ? `${list.length} places — tap one to fly the map there.`
     : `${list.length}곳 — 누르면 지도가 그 가게로 갑니다.`;
+  const no=new Map(); list.forEach((f,i)=>no.set(f,i+1));   // drawFoodMap 과 같은 순서로 번호를 매긴다
   const cities=[...new Set(list.map(f=>f.c))];
   box.innerHTML = cities.map(c=>{
     const rows=list.filter(f=>f.c===c).map(f=>{
       const cat=CATS[f.cat]||{hex:'var(--ink-3)'};
-      return `<div class="fl-row"><span class="fl-dot" style="background:${cat.hex}"></span>
+      return `<div class="fl-row"><span class="fl-no" style="background:${cat.hex}">${no.get(f)}</span>
         <span class="fl-n"><a href="javascript:void(0)" onclick="flyFood(${f.lat},${f.lng})">${t(f.n)}</a>
         <span class="fl-h">${t(f.h)}</span></span></div>`;
     }).join('');
@@ -1899,14 +1903,16 @@ function drawFoodMap(){
   if(!flayer) return;
   flayer.clearLayers();
   const bounds=[];
+  let fidx=0;
   gourmetList().forEach(f=>{
     const c=CATS[f.cat];
+    fidx++;
     const icon=LF.divIcon({className:'',iconSize:[26,26],iconAnchor:[13,24],
       html:`<div class="pin" style="background:${c.hex};width:26px;height:26px">
-              <span><i class="fa-solid ${c.ic}" style="font-size:10px"></i></span></div>`});
+              <span>${fidx}</span></div>`});
     flayer.addLayer(LF.marker([f.lat,f.lng],{icon}).bindPopup(
       `<div style="min-width:200px;max-width:260px">
-         <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:${c.hex}">${c[LANG?'en':'ko'].toUpperCase()}</div>
+         <div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:${c.hex}">${fidx}. ${c[LANG?'en':'ko'].toUpperCase()}</div>
          <div style="font-weight:700;font-size:14px;margin:3px 0 5px">${t(f.n)}</div>
          <div style="color:#8894ad;font-size:12px">🕐 ${t(f.h)}</div>
          <div style="color:#ffd980;font-size:12px;margin-top:6px">${t(f.o)}</div>
