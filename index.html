@@ -412,6 +412,7 @@ img,iframe,canvas{max-width:100%}
 .dt-tip{background:var(--bg-3);border-radius:9px;padding:9px 11px;font-size:12px;color:var(--ink-1);margin-bottom:9px}
 .dt-map{display:inline-block;background:#fff;color:#0a0e1a;padding:6px 12px;border-radius:8px;
   font-size:11.5px;font-weight:700;text-decoration:none}
+.fl-em{flex:0 0 auto;font-size:12px;line-height:1;margin-top:2px}
 .fl-no{flex:0 0 17px;height:17px;border-radius:5px;display:grid;place-items:center;
   font-family:"Space Grotesk",monospace;font-size:9.5px;font-weight:900;color:#0a0e1a}
 .fl-n{flex:1;font-size:12.5px;line-height:1.45}
@@ -631,8 +632,7 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
     <div class="grid lg:grid-cols-[1fr_320px] gap-5">
       <div id="foodMap" role="region" aria-label="Food map"></div>
       <div class="surface rounded-2xl p-5 map-side">
-        <h3 class="font-bold text-[14px] mb-1"><span data-ko>가게 목록</span><span data-en>The list</span></h3>
-        <p class="text-[11.5px] mb-3" style="color:var(--ink-3)" id="foodListHint"></p>
+        <h3 class="font-bold text-[14px] mb-3"><span data-ko>가게 목록</span><span data-en>The list</span></h3>
         <div id="foodList"></div>
       </div>
     </div>
@@ -1985,8 +1985,6 @@ function flyFood(i){
 function renderFoodList(){
   const box=document.getElementById('foodList'); if(!box) return;
   const list=gourmetList();
-  document.getElementById('foodListHint').textContent =
-    LANG ? `${list.length} places` : `${list.length}곳`;
   const fbox=document.getElementById('foodDetail');
   if(fbox) fbox.innerHTML = `<div class="dt-empty">${LANG?'Pick a place from the list.':'왼쪽 목록에서 가게를 누르세요.'}</div>`;
   FLIST=list;
@@ -1995,7 +1993,7 @@ function renderFoodList(){
   box.innerHTML = cities.map(c=>{
     const rows=list.filter(f=>f.c===c).map(f=>{
       const cat=CATS[f.cat]||{hex:'var(--ink-3)'};
-      return `<div class="fl-row"><span class="fl-no" style="background:${cat.hex}">${no.get(f)}</span>
+      return `<div class="fl-row"><span class="fl-no" style="background:${cat.hex}">${no.get(f)}</span><span class="fl-em">${cat.em||''}</span>
         <span class="fl-n"><a href="javascript:void(0)" onclick="flyFood(${no.get(f)-1})">${t(f.n)}</a>
         <span class="fl-h">${t(f.h)}</span></span></div>`;
     }).join('');
