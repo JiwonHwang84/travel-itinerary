@@ -613,6 +613,29 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
     </div>
     <div class="flex flex-wrap gap-2 mb-5" id="foodCityChips"></div>
 
+    <!-- 저장 목록에서 일정에 못 넣은 후보들 — 현장에서 골라 쓰는 용도 -->
+    <div class="surface rounded-2xl p-5 mb-5" style="border-color:var(--line)">
+      <h3 class="font-bold text-[15px] mb-1">
+        <i class="fa-solid fa-bookmark mr-2" style="color:var(--gold)"></i><span data-ko>골라먹는 후보 — 저장 목록에서</span><span data-en>Spare picks — from your saved list</span>
+      </h3>
+      <p class="text-[12.5px] mb-4" style="color:var(--ink-2)"><span data-ko>구글맵에 저장해두셨는데 일정에 자리가 없던 곳들입니다. 바르셀로나 저녁이 이미 다 배정돼 있어서 넣으려면 뭘 빼야 하는데, 그 판단은 현장에서 하는 게 낫습니다. <b class="text-white">영업시간은 확인하지 않았으니</b> 가기 전 구글맵으로 한 번 보세요.</span><span data-en>Places you saved that had no slot left. <b class="text-white">Hours are unverified</b> — check Google Maps before going.</span></p>
+      <div class="grid md:grid-cols-2 gap-x-6 gap-y-2.5 text-[13px]">
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🍽️</span><span><b class="text-white">Bivio</b> · <span data-ko>식당 — 그라시아</span><span data-en>restaurant, Gràcia</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🍽️</span><span><b class="text-white">Jesús Restaurant</b> · <span data-ko>식당</span><span data-en>restaurant</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🍽️</span><span><b class="text-white">Restaurant La Campana</b> · <span data-ko>식당 (세비야 아니고 바르셀로나)</span><span data-en>restaurant (Barcelona, not Seville)</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🍽️</span><span><b class="text-white">Morreig</b> · <span data-ko>식당</span><span data-en>restaurant</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🍽️</span><span><b class="text-white">토스카 (Tosca)</b> · <span data-ko>식당</span><span data-en>restaurant</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🍜</span><span><b class="text-white">키코</b> · <span data-ko>한국어 이름 — 한식당으로 보입니다</span><span data-en>Korean-named spot</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🍕</span><span><b class="text-white">pizzeria napoletana 081</b> · <span data-ko>피자 (Da Nanni 대안)</span><span data-en>pizza (alt to Da Nanni)</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🥐</span><span><b class="text-white">Pastisseria López</b> · <span data-ko>베이커리 (Hofmann 대안)</span><span data-en>bakery (alt to Hofmann)</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🍫</span><span><b class="text-white">추레리아 라이에타나</b> · <span data-ko>츄러스 (La Pallaresa 대안)</span><span data-en>churros</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🥞</span><span><b class="text-white">Amiko Brunch &amp; Gelato</b> · <span data-ko>브런치</span><span data-en>brunch</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🍨</span><span><b class="text-white">delaCrem Terra / Creativa</b> · <span data-ko>Enric Granados점은 일정에 있음</span><span data-en>other delaCrem branches</span></span></div>
+        <div class="flex gap-2.5"><span style="color:var(--gold)">🍨</span><span><b class="text-white">CAJÚ · Gelats Dellaostia · MYKA Born</b> · <span data-ko>젤라또 추가 후보</span><span data-en>more gelato</span></span></div>
+      </div>
+      <p class="text-[12px] mt-4" style="color:var(--ink-3)"><span data-ko>※ 저장 목록의 마드리드 항목 6곳(Puerta del Sol · San Ginés 등)과 호텔 후보 3곳은 이번 여행 범위가 아니라 빼뒀습니다. <b>Lamaro Hotel(구 콜론 호텔) 루프탑바는 이미 09.21 22:15에 들어 있습니다.</b></span><span data-en>Six Madrid entries and three hotel candidates were left out. The Lamaro (ex-Colón) rooftop bar is already in the 21 Sep plan at 22:15.</span></p>
+    </div>
+
     <div class="overflow-x-auto surface rounded-2xl">
       <table class="hrs">
         <thead><tr>
@@ -871,6 +894,9 @@ const DAYS=[
   d:["★ 저장 메모에 '예약해두기'라고 적으신 곳. 오픈 주방을 둘러싼 바 좌석이 이 집의 본체입니다 — 요리하는 걸 코앞에서 봅니다.","★ The one you flagged 'make a reservation'. The bar wrapped around the open kitchen is the real restaurant — you watch every plate being made."],
   tip:["오징어 샌드위치(bikini de calamar, €6) · 새우 프리터 · 스테이크 타르타르 + 감자튀김 · 말라가식 멸치튀김","Bikini de calamar (€6), prawn fritters, steak tartare with chips, Málaga-style fried anchovies"],
   tag:"book",tagl:["barcanete.com 예약","Reserve at barcanete.com"]},
+ {t:"15:05",k:"see",ic:"fa-cat",n:["엘 가트 데 보테로 (보테로의 고양이)","El Gat de Botero"],lat:41.3787648,lng:2.1684637,pid:"ChIJd8dGSuqipBIRZjr7T5v8DDU",
+  d:["보테로의 뚱뚱한 청동 고양이. 라발 람블라 한복판에 있어서 Cañete에서 도보 4분입니다. 저장 목록에 있던 곳 — 시간 거의 안 드는 포토스팟이라 점심 직후에 끼웠습니다.","Botero's fat bronze cat on the Rambla del Raval, four minutes from Cañete. It was on your saved list — a photo stop that costs almost no time."],
+  tip:["고양이 등을 만지면 행운이 온다는 얘기가 있어서 등이 반질반질합니다.","Rubbing its back is said to bring luck, which is why the back is polished shiny."]},
  {t:"15:30",k:"see",ic:"fa-store",n:["라 보케리아 시장","La Boqueria market"],lat:41.3817399,lng:2.1715853,pid:"ChIJAVoetfeipBIR1a1z3FTGCoY",
   hours:["월–토 08:00–20:30 · 일요일 휴무","Mon–Sat 08:00–20:30 · closed Sundays"],
   d:["도보 5분. 배부른 상태로 구경만 하기 딱 좋습니다. 입구 쪽 과일주스 좌판은 비싸니 안쪽으로 두 줄 더 들어가세요.","Five minutes away and best browsed on a full stomach. Skip the juice stalls at the entrance and go two aisles deeper."],
