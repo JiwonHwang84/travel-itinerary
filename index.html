@@ -382,6 +382,9 @@ img,iframe,canvas{max-width:100%}
 .ms-n a{color:var(--ink-1);text-decoration:none;border-bottom:1px dotted var(--ink-3)}
 .ms-n a:hover{color:#fff;border-bottom-color:#fff}
 .ms-k{flex:0 0 auto;font-size:10px;opacity:.75}
+.ms-no{flex:0 0 16px;height:16px;border-radius:5px;display:grid;place-items:center;
+  font-family:"Space Grotesk",monospace;font-size:9.5px;font-weight:900;color:#0a0e1a}
+.ms-no-off{background:transparent}
 
 /* 타임라인 */
 .tl{position:relative;padding-left:26px}
@@ -1145,18 +1148,22 @@ const DAYS=[
   hours:["월–토 08:00–20:30 (일 휴무)","Mon–Sat 08:00–20:30 (closed Sun)"],
   d:["토요일이라 영업합니다. 지로나 때문에 09.21에서 빠졌던 곳을 여기서 회수합니다.","Open on Saturday. Girona pushed it out of 21 Sep — this is where it comes back."],
   tip:["안쪽 골목으로 들어갈수록 관광객이 줄고 값이 내려갑니다. 하몽·과일주스는 입구 쪽이 제일 비쌉니다.","The deeper in you go, the cheaper and less touristy — the entrance stalls are the priciest."]},
- {t:"12:10",k:"see",ic:"fa-cat",n:["엘 가트 데 보테로 (보테로의 고양이)","El Gat de Botero"],lat:41.3787648,lng:2.1684637,pid:"ChIJd8dGSuqipBIRZjr7T5v8DDU",
+ {t:"12:30",k:"see",ic:"fa-cat",n:["엘 가트 데 보테로 (보테로의 고양이)","El Gat de Botero"],lat:41.3787648,lng:2.1684637,pid:"ChIJd8dGSuqipBIRZjr7T5v8DDU",
   d:["보테로의 뚱뚱한 청동 고양이. 보케리아에서 라발 람블라로 도보 6분입니다. 저장 목록에 있던 곳 — 5분짜리 포토스팟입니다.","Botero's fat bronze cat, six minutes from the Boqueria into the Rambla del Raval. From your saved list — a five-minute stop."],
   tip:["고양이 등을 만지면 행운이 온다고 해서 등이 반질반질합니다.","Rubbing its back is said to bring luck, hence the polish."]},
- {t:"12:35",k:"shop",ic:"fa-bag-shopping",n:["마지막 쇼핑 · 람블라 → 카탈루냐 광장","Last shopping · La Rambla → Plaça Catalunya"],lat:41.3870,lng:2.1700,
+ {t:"12:00",k:"shop",ic:"fa-bag-shopping",n:["마지막 쇼핑 · 람블라 → 카탈루냐 광장","Last shopping · La Rambla → Plaça Catalunya"],lat:41.3870,lng:2.1700,
   d:["Bershka·Stradivarius·Desigual·Primark이 카탈루냐 광장 일대에 다 모여 있습니다. 쇼핑 탭 목록 참고하세요.","Bershka, Stradivarius, Desigual and Primark are all around Plaça Catalunya — see the shopping list."],
   tip:["🔴 <b>Tax Free 서류는 여기서 꼭 받아두세요.</b> 공항 DIVA 단말기에서 처리하려면 매장 서류가 있어야 합니다.","🔴 <b>Get the Tax Free forms in the shop.</b> You need them for the DIVA terminals at the airport."]},
- {t:"13:15",k:"move",ic:"fa-taxi",n:["택시 → 바르셀로네타","Taxi to Barceloneta"],lat:41.3796,lng:2.1836,nomap:true,
+ {t:"12:50",k:"move",ic:"fa-taxi",n:["택시 → 바르셀로네타 해변","Taxi to Barceloneta beach"],lat:41.3796,lng:2.1836,nomap:true,
   d:["약 10분. 걸어도 15분이지만 오후 MNAC 시각이 걸려 있으니 택시가 안전합니다.","About ten minutes. Walkable in fifteen, but the MNAC slot is waiting, so take the taxi."]},
- {t:"13:30",k:"eat",ic:"fa-shrimp",n:["바다 앞 마지막 점심 · Cerveseria Vaso de Oro","A last lunch by the sea · Cerveseria Vaso de Oro"],lat:41.3796,lng:2.1836,
+ {t:"13:05",k:"see",ic:"fa-umbrella-beach",n:["바르셀로네타 해변","Barceloneta beach"],lat:41.3785,lng:2.1925,pid:"ChIJIQBpAG2ipBIRkOI2lf4Sfvo",
+  d:["일정 중 <b>바다에 발 담글 수 있는 유일한 시간</b>입니다. 세비야는 내륙이고 바르셀로나 나머지 날은 전부 차 있어서, 여기 45분이 전부예요. 9월 바르셀로나 수온은 아직 23~24도라 들어가도 됩니다.","The <b>only slot where you can actually get in the water</b>. Seville is inland and the other Barcelona days are full, so this 45 minutes is it. The sea is still 23–24 °C in September."],
+  tip:["🔴 <b>수영복을 챙기실 거면 오늘 짐에서 빼두세요</b> — 아침에 에스파냐 역에 맡기면 못 꺼냅니다. 해변 샤워장이 있고, 소매치기가 많으니 <b>물에 들어갈 때 짐은 번갈아 지키세요.</b>","🔴 <b>If you want to swim, keep the swimsuit out of the locker bag this morning.</b> There are showers, and pickpockets work this beach — take turns watching your things."],
+  tag:"info",tagl:["유일한 해변 시간","The only beach slot"]},
+ {t:"13:50",k:"eat",ic:"fa-shrimp",n:["바다 앞 마지막 점심 · Cerveseria Vaso de Oro","A last lunch by the sea · Cerveseria Vaso de Oro"],lat:41.3796,lng:2.1836,
   hours:["매일 12:00–24:00","Daily 12:00–24:00"],
   d:["좁고 시끄럽고 서서 먹습니다. 바르셀로나에서 가장 현지스러운 경험이고, 해변이 도보 3분입니다.","Narrow, loud, standing room only — the most local thing you'll do in Barcelona, and the beach is three minutes away."],
-  tip:["점심 후 해변까지 5분만 걸어 바다를 보고 오세요. 14:30에는 택시를 타야 합니다.","Walk five minutes down to see the sea after lunch, but be in a taxi by 14:30."]},
+  tip:["해변에서 도보 5분. 서서 먹는 집이라 회전이 빨라 40분이면 충분합니다. <b>14:30에는 택시를 타야</b> MNAC 15:00 에 댑니다.","Five minutes from the beach. Standing room only and fast, so forty minutes is enough. <b>Be in a taxi by 14:30</b> to make the 15:00 MNAC slot."]},
  {t:"14:30",k:"move",ic:"fa-taxi",n:["택시 바르셀로네타 → MNAC","Taxi Barceloneta → MNAC"],lat:41.3684,lng:2.1533,nomap:true,
   d:["약 15분. 몬주익 언덕을 올라 미술관 정문 앞까지 갑니다. 걸어 올라가면 20분에 계단이라 오늘은 택시가 맞습니다.","About fifteen minutes, right up to the museum door. Walking it means twenty minutes of steps — take the taxi today."],
   tag:"warn",tagl:["14:30 출발 엄수","Leave by 14:30"]},
@@ -1379,17 +1386,17 @@ const SIGHTS=[
 ];
 
 const STAYS=[
-{n:["Carrer de Camprodon 23","Carrer de Camprodon 23"],lat:41.4009872,lng:2.1641012,pid:"ChIJg0pF_b-ipBIRRX7r5GriPAM",
+{n:["Carrer de Camprodon 23","Carrer de Camprodon 23"],days:[1,2,3,4],lat:41.4009872,lng:2.1641012,pid:"ChIJg0pF_b-ipBIRRX7r5GriPAM",
  dates:["09.19 (토) → 09.22 (화) · 3박","19 Sep → 22 Sep · 3 nights"],col:"var(--bcn)",
  io:["체크인 16:00 / 체크아웃 11:00","Check-in 16:00 / Check-out 11:00"],
  d:["그라시아 동쪽. 사그라다 파밀리아 도보 15분, 구엘 공원 택시 8분, 메트로 Joanic(L4)·Verdaguer(L4/L5) 각각 도보 5분.","East Gràcia. Fifteen minutes' walk to the Sagrada Família, eight by taxi to Park Güell, five to either Joanic (L4) or Verdaguer (L4/L5)."],
  note:["첫날 도착이 20:40 예정이라 늦은 체크인 가능 여부를 호스트에게 미리 확인하세요.","You'll arrive around 20:40 on night one — confirm late check-in with the host in advance."]},
-{n:["C. Conteros 3, 1-102","C. Conteros 3, 1-102"],lat:37.3875965,lng:-5.9927514,pid:"ChIJcwq7bhpsEg0REf39FVx7UTM",
+{n:["C. Conteros 3, 1-102","C. Conteros 3, 1-102"],days:[4,5,6,7],lat:37.3875965,lng:-5.9927514,pid:"ChIJcwq7bhpsEg0REf39FVx7UTM",
  dates:["09.22 (화) → 09.25 (금) · 3박","22 Sep → 25 Sep · 3 nights"],col:"var(--svq)",
  io:["체크인 15:00 / 체크아웃 11:00","Check-in 15:00 / Check-out 11:00"],
  d:["세비야 대성당 도보 2분, 알카사르 도보 6분, 산타크루스 골목 바로 옆. 이보다 중심일 수 없는 위치입니다.","Two minutes from the cathedral, six from the Alcázar, and right beside the Santa Cruz lanes. You cannot be more central."],
  note:["도착 13:45 / 체크인 15:00 — 짐만 맡기고 점심 먼저 드시면 됩니다. 매일 시에스타 복귀가 쉬운 게 가장 큰 장점.","You land at 13:45 and check in at 15:00, so drop bags and eat. The real advantage is how easy the daily siesta becomes."]},
-{n:["Carrer de Montmany 38","Carrer de Montmany 38"],lat:41.4047228,lng:2.1598481,pid:"ChIJE_vLn76ipBIRUYmaK47PjyA",
+{n:["Carrer de Montmany 38","Carrer de Montmany 38"],days:[7,8],lat:41.4047228,lng:2.1598481,pid:"ChIJE_vLn76ipBIRUYmaK47PjyA",
  dates:["09.25 (금) → 09.26 (토) · 1박","25 Sep → 26 Sep · 1 night"],col:"var(--violet)",
  io:["체크인 14:00 / 체크아웃 11:00","Check-in 14:00 / Check-out 11:00"],
  d:["같은 그라시아, 첫 숙소에서 도보 6분. 이미 아는 동네라 마지막 밤이 편합니다. 메트로 Joanic(L4) 도보 4분.","The same neighbourhood, six minutes from your first flat — a familiar last night. Joanic (L4) is four minutes away."],
@@ -1613,12 +1620,10 @@ function drawMap(){
       layer.addLayer(m); bounds.push([it.lat,it.lng]);
     });
   });
-  // 숙소는 그날 동선 근처에 있는 것만 표시한다.
-  // 바르셀로나만 도는 날에 세비야 집이 찍히면 fitBounds 가 800km 를 담으려고
-  // 줌을 6까지 빼버려서 정작 그날 핀이 안 보인다.
-  const near = (a,b) => Math.abs(a[0]-b[0])<1.2 && Math.abs(a[1]-b[1])<1.2;
-  const shown = STAYS.filter(st =>
-    !bounds.length || bounds.some(b=>near([st.lat,st.lng],b)));
+  // 숙소는 그날 실제로 묵는 곳만 표시한다(체크인·체크아웃 날 포함).
+  // 거리로 거르면 같은 도시의 다른 숙소까지 떠서, 그날 안 묵는 집이 지도에 남는다.
+  const shown = mapFilter==='all' ? STAYS
+              : STAYS.filter(st => (st.days||[]).includes(+mapFilter));
   shown.forEach(st=>{
     const icon = LF.divIcon({className:'',iconSize:[30,30],iconAnchor:[15,15],
       html:`<div class="pin-home" title="${t(st.n)}">🏠</div>`});
@@ -1655,12 +1660,14 @@ function renderMapSchedule(){
     ? (LANG?'All 8 days. Filter above to narrow.':'8일 전체입니다. 위 버튼으로 좁힐 수 있어요.')
     : (LANG?'Tap a place to fly the map there.':'장소를 누르면 지도가 그 지점으로 갑니다.');
   box.innerHTML = days.map(d=>{
+    let idx=0;                       // drawMap 과 같은 규칙으로 센다 (nomap 제외)
     const rows = d.items.map(it=>{
       const nm=t(it.n);
+      const pin = !it.nomap ? `<span class="ms-no" style="background:${d.hex}">${++idx}</span>` : '<span class="ms-no ms-no-off"></span>';
       const label = it.lat
         ? `<a href="javascript:void(0)" onclick="flyTo(${it.lat},${it.lng})">${nm}</a>`
         : nm;
-      return `<div class="ms-row"><span class="ms-t">${it.t}</span>
+      return `<div class="ms-row"><span class="ms-t">${it.t}</span>${pin}
         <span class="ms-k">${KICON[it.k]||''}</span><span class="ms-n">${label}</span></div>`;
     }).join('');
     return `<div class="ms-day" style="color:${d.hex}">DAY ${d.n} · ${d.date} ${t(d.dow)}</div>${rows}`;
