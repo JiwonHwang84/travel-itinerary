@@ -364,6 +364,24 @@ img,iframe,canvas{max-width:100%}
   display:grid;place-items:center;box-shadow:0 0 0 1px var(--line);border:2px solid rgba(255,255,255,.85);
 }
 .pin span{transform:rotate(45deg);font-size:11px;font-weight:900;color:#0a0e1a;font-family:"Space Grotesk",sans-serif}
+/* 숙소 마커 — 일정 핀과 확실히 구분되게 사각형 + 집 이모지 */
+.pin-home{
+  width:30px;height:30px;border-radius:9px;background:#fff;display:grid;place-items:center;
+  font-size:15px;line-height:1;box-shadow:0 0 0 1px var(--line);border:2px solid var(--gold);
+}
+/* 지도 옆 일정 패널 */
+#mapSched{max-height:420px;overflow-y:auto;scrollbar-width:thin}
+#mapSched::-webkit-scrollbar{width:6px}
+#mapSched::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.ms-day{font-family:"Space Grotesk",monospace;font-size:10.5px;letter-spacing:.1em;font-weight:700;
+  padding:7px 0 4px;position:sticky;top:0;background:var(--bg-2)}
+.ms-row{display:flex;gap:8px;padding:4px 0;border-top:1px solid var(--line);align-items:baseline}
+.ms-row:first-of-type{border-top:0}
+.ms-t{font-family:"Space Grotesk",monospace;font-size:11px;color:var(--ink-2);flex:0 0 38px}
+.ms-n{font-size:12.5px;line-height:1.45;color:var(--ink-1);flex:1}
+.ms-n a{color:var(--ink-1);text-decoration:none;border-bottom:1px dotted var(--ink-3)}
+.ms-n a:hover{color:#fff;border-bottom-color:#fff}
+.ms-k{flex:0 0 auto;font-size:10px;opacity:.75}
 
 /* 타임라인 */
 .tl{position:relative;padding-left:26px}
@@ -452,7 +470,7 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
       <div class="card p-4">
         <p class="mono text-[11px] muted-2 mb-1">DOMESTIC</p>
         <p class="font-bold text-[15px]" style="color:var(--gold)">BCN ⇄ SVQ</p>
-        <p class="text-[12.5px] muted"><span data-ko>1시간 35분 · 미예매</span><span data-en>1h 35m · not booked yet</span></p>
+        <p class="text-[12.5px] muted"><span data-ko>VY2212 / VY2227 · 예매완료</span><span data-en>VY2212 / VY2227 · booked</span></p>
       </div>
       <div class="card p-4">
         <p class="mono text-[11px] muted-2 mb-1">STAYS</p>
@@ -500,20 +518,20 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
     </div>
 
     <div class="surface rounded-2xl p-5 md:p-6">
-      <h3 class="font-bold text-[15px] mb-4"><i class="fa-solid fa-plane-departure mr-2" style="color:var(--gold)"></i><span data-ko>국내선 예매 권장 시간대 (아직 미예매)</span><span data-en>Recommended domestic flight windows (not booked yet)</span></h3>
+      <h3 class="font-bold text-[15px] mb-4"><i class="fa-solid fa-plane-departure mr-2" style="color:var(--gold)"></i><span data-ko>국내선 — 예매 완료</span><span data-en>Domestic flights — booked</span></h3>
       <div class="grid md:grid-cols-2 gap-4">
         <div class="surface-2 rounded-xl p-4">
-          <p class="mono text-[12px] mb-2" style="color:var(--bcn)">09.22 (TUE) BCN T1 → SVQ</p>
-          <p class="text-[14px] font-bold mb-1"><span data-ko>10:30 ~ 11:30 출발편</span><span data-en>Depart 10:30 – 11:30</span></p>
-          <p class="text-[13px] muted"><span data-ko>숙소 체크아웃 11:00 → 08:00 조기 퇴실 후 08:15 택시. Vueling·Ryanair·Iberia 모두 이 시간대 운항. 세비야 숙소 체크인 15:00에 딱 맞습니다.</span><span data-en>Check out early at 08:00 and taxi at 08:15. Vueling, Ryanair and Iberia all fly this window, landing in time for the 15:00 Seville check-in.</span></p>
+          <p class="mono text-[12px] mb-2" style="color:var(--bcn)">09.22 (TUE) · VY2212</p>
+          <p class="text-[14px] font-bold mb-1">BCN <span style="color:var(--gold)">T1</span> 09:15 → SVQ 11:00</p>
+          <p class="text-[13px] muted"><span data-ko>부엘링 · A320 · 1시간 45분. 06:30 조기 체크아웃 → 06:45 택시 → 07:15 공항(수하물 위탁). 세비야 11:00 도착이라 <b class="text-white">첫날 오후가 통째로 남습니다</b> — 스페인 광장을 넣었습니다.</span><span data-en>Vueling A320, 1h 45m. Check out 06:30, taxi 06:45, at the airport by 07:15. Landing at 11:00 leaves the whole first afternoon free.</span></p>
         </div>
         <div class="surface-2 rounded-xl p-4">
-          <p class="mono text-[12px] mb-2" style="color:var(--svq)">09.25 (FRI) SVQ → BCN T1</p>
-          <p class="text-[14px] font-bold mb-1"><span data-ko>13:00 ~ 14:00 출발편</span><span data-en>Depart 13:00 – 14:00</span></p>
-          <p class="text-[13px] muted"><span data-ko>세비야 11:00 체크아웃 후 오전 쇼핑 → 공항. 바르셀로나 도착 15:00~16:00이면 21:00 마법의 분수까지 여유롭습니다.</span><span data-en>Check out at 11:00, shop, then fly. Landing 15:00–16:00 leaves plenty of time before the 21:00 fountain show.</span></p>
+          <p class="mono text-[12px] mb-2" style="color:var(--svq)">09.25 (FRI) · VY2227</p>
+          <p class="text-[14px] font-bold mb-1">SVQ 15:25 → BCN <span style="color:var(--gold)">T1</span> 17:10</p>
+          <p class="text-[13px] muted"><span data-ko>1시간 45분. 11:00 체크아웃 후 <b class="text-white">세비야 마지막 점심</b>까지 먹고 13:15 택시. 바르셀로나 18:15 체크인 → La Mercè 축제 거리로.</span><span data-en>1h 45m. Check out at 11:00, squeeze in a last Seville lunch, taxi at 13:15. Barcelona check-in 18:15, then straight into La Mercè.</span></p>
         </div>
       </div>
-      <p class="text-[12.5px] muted-2 mt-4"><i class="fa-solid fa-circle-info mr-1"></i><span data-ko>Vueling·Iberia는 BCN 터미널 1, Ryanair도 T1입니다. 귀국편(티웨이)만 T2이니 마지막 날만 T2로 가세요.</span><span data-en>Vueling, Iberia and Ryanair all use BCN Terminal 1. Only your T'way flight home departs from Terminal 2.</span></p>
+      <p class="text-[12.5px] muted-2 mt-4"><i class="fa-solid fa-triangle-exclamation mr-1" style="color:var(--gold)"></i><span data-ko><b class="text-white">국내선 왕복은 T1, 귀국편(TW0408)만 T2입니다.</b> 마지막 날 09.26에 습관적으로 T1이라고 하면 셔틀로 되돌아와야 합니다. 부엘링 앱에 두 편을 등록해 결항·지연 알림을 받아두세요.</span><span data-en><b class="text-white">Both domestic legs use T1; only the flight home (TW0408) is T2.</b> Register both flights in the Vueling app for delay alerts.</span></p>
     </div>
   </div>
 </section>
@@ -530,13 +548,19 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
     <div class="grid lg:grid-cols-[1fr_320px] gap-5">
       <div id="map" role="region" aria-label="Itinerary map"></div>
       <div class="surface rounded-2xl p-5 h-fit">
-        <h3 class="font-bold text-[14px] mb-4"><span data-ko>지도 사용법</span><span data-en>How to use it</span></h3>
-        <ul class="space-y-3 text-[13px]" style="color:var(--ink-1)">
-          <li class="flex gap-2.5"><span style="color:var(--gold)">①</span><span data-ko>핀 색 = 날짜. 숫자는 그날의 방문 순서입니다.</span><span data-en>Pin colour = day. The number is that day's stop order.</span></li>
-          <li class="flex gap-2.5"><span style="color:var(--gold)">②</span><span data-ko>핀을 누르면 영업시간·추천메뉴와 <b class="text-white">구글맵 열기</b> 버튼이 뜹니다.</span><span data-en>Tap a pin for hours, what to order, and an <b class="text-white">Open in Google Maps</b> button.</span></li>
-          <li class="flex gap-2.5"><span style="color:var(--gold)">③</span><span data-ko>날짜별 <b class="text-white">전체 경로 길찾기</b> 버튼은 그날 모든 지점을 순서대로 구글맵 길찾기에 넣어줍니다.</span><span data-en>The <b class="text-white">Route this day</b> button loads every stop of that day into Google Maps directions in order.</span></li>
-        </ul>
-        <div id="dayRouteBox" class="mt-5"></div>
+        <h3 class="font-bold text-[14px] mb-1"><span data-ko>일정</span><span data-en>Schedule</span></h3>
+        <p class="text-[11.5px] mb-3" style="color:var(--ink-3)" id="mapSchedHint"></p>
+        <div id="mapSched"></div>
+        <div id="dayRouteBox" class="mt-4"></div>
+        <details class="mt-4 text-[12.5px]" style="color:var(--ink-1)">
+          <summary style="cursor:pointer;color:var(--ink-2)"><span data-ko>지도 사용법</span><span data-en>How to use it</span></summary>
+          <ul class="space-y-2.5 mt-3">
+            <li class="flex gap-2.5"><span style="color:var(--gold)">①</span><span data-ko>핀 색 = 날짜. 숫자는 그날의 방문 순서입니다.</span><span data-en>Pin colour = day. The number is that day's stop order.</span></li>
+            <li class="flex gap-2.5"><span style="color:var(--gold)">🏠</span><span data-ko><b class="text-white">집 아이콘은 숙소</b>입니다. 3곳 모두 항상 표시됩니다.</span><span data-en><b class="text-white">House icons are your flats</b> — all three always show.</span></li>
+            <li class="flex gap-2.5"><span style="color:var(--gold)">②</span><span data-ko>핀을 누르면 영업시간·추천메뉴와 <b class="text-white">구글맵 열기</b> 버튼이 뜹니다.</span><span data-en>Tap a pin for hours, what to order, and an <b class="text-white">Open in Google Maps</b> button.</span></li>
+            <li class="flex gap-2.5"><span style="color:var(--gold)">③</span><span data-ko>옆 일정에서 장소를 누르면 지도가 그 지점으로 이동합니다.</span><span data-en>Tap a place in the schedule to fly the map to it.</span></li>
+          </ul>
+        </details>
       </div>
     </div>
   </div>
@@ -772,41 +796,41 @@ const DAYS=[
 ]},
 
 {n:2,date:"09.20",dow:["일","Sun"],hex:"#ffc94d",city:["바르셀로나","Barcelona"],
- title:["사그라다 파밀리아, 그리고 모더니즘 거리","Sagrada Família, then the modernista mile"],
- sub:["일요일이라 보케리아 시장·Cañete·Bar del Pla·La Flauta가 전부 휴무입니다. 그래서 오늘은 연중무휴인 곳들로만 짰습니다.","It's Sunday: La Boqueria, Cañete, Bar del Pla and La Flauta are all shut, so today runs entirely on places that never close."],
+ title:["모더니즘 거리, 그리고 사그라다 투어","The modernista mile, then the Sagrada tour"],
+ sub:["사그라다 투어가 13:30(집합: El Glop Gaudí 앞)이라 모더니즘 거리를 오전으로 올렸습니다. 일요일이라 보케리아 시장·Cañete·Bar del Pla·La Flauta가 전부 휴무여서 연중무휴인 곳들로만 짰습니다.","It's Sunday: La Boqueria, Cañete, Bar del Pla and La Flauta are all shut, so today runs entirely on places that never close."],
  items:[
- {t:"09:15",k:"eat",ic:"fa-mug-saucer",n:["조식 · 숙소 근처 또는 Xurreria Trébol","Breakfast · near the flat, or Xurreria Trébol"],lat:41.3979254,lng:2.1609305,pid:"ChIJfw35N5SipBIRiCJYEYAqjL4",
+ {t:"09:30",k:"eat",ic:"fa-mug-saucer",n:["조식 · 숙소 근처 또는 Xurreria Trébol","Breakfast · near the flat, or Xurreria Trébol"],lat:41.3979254,lng:2.1609305,pid:"ChIJfw35N5SipBIRiCJYEYAqjL4",
   hours:["일요일 24시간","24 hours on Sunday"],
   d:["가볍게. 오늘 점심이 든든하니 카페 콘 레체 + 크루아상 정도면 충분합니다.","Keep it light — lunch is substantial, so a café con leche and a croissant is plenty."]},
- {t:"10:15",k:"move",ic:"fa-person-walking",n:["숙소 → 사그라다 파밀리아 도보","Walk to the Sagrada Família"],nomap:true,
+ {t:"10:05",k:"move",ic:"fa-train-subway",n:["메트로 L4 Joanic → Passeig de Gràcia","Metro L4: Joanic → Passeig de Gràcia"],nomap:true,
   d:["도보 15분. Carrer de Provença를 따라 내려가면 탑이 골목 끝에서 갑자기 나타납니다.","15 minutes down Carrer de Provença — the towers appear suddenly at the end of the street."]},
- {t:"10:30",k:"see",ic:"fa-church",n:["사그라다 파밀리아 + 수난의 파사드 탑","Sagrada Família + Passion Tower"],lat:41.4036299,lng:2.1743558,pid:"ChIJk_s92NyipBIRUMnDG8Kq2Js",
+ {t:"13:30",k:"see",ic:"fa-church",n:["사그라다 파밀리아 가이드 투어 (13:30~13:40 슬롯)","Sagrada Família guided tour (13:30–13:40 slot)"],lat:41.4036299,lng:2.1743558,pid:"ChIJk_s92NyipBIRUMnDG8Kq2Js",
   hours:["4–9월 월–금 09:00–20:00 / 토 09:00–18:00 / 일 10:30–20:00","Apr–Sep Mon–Fri 09:00–20:00, Sat 09:00–18:00, Sun 10:30–20:00"],
   d:["2026년 2월 예수 그리스도 탑 십자가가 올라가 172.5m로 완성됐습니다. 가우디 서거 100주년인 해에 세계 최고 높이 성당이 된 셈이에요.","In February 2026 the cross topped out the Tower of Jesus Christ at 172.5 m — the world's tallest church, in the centenary year of Gaudí's death."],
   tip:["오전엔 탄생 파사드 쪽 파랑·초록 스테인드글라스가, 오후엔 수난 파사드 쪽 빨강·주황이 살아납니다. 탑은 11:15 슬롯 권장 — 엘리베이터로 올라가 계단으로 내려옵니다.","Mornings light the blue-green glass on the Nativity side; afternoons ignite the reds on the Passion side. Book the tower for 11:15 — lift up, stairs down."],
   tag:"book",tagl:["2–3주 전 예약 필수","Book 2–3 weeks ahead"]},
- {t:"12:45",k:"see",ic:"fa-camera",n:["가우디 광장 연못 반영샷","Reflection shot at Plaça de Gaudí"],lat:41.4053,lng:2.1745,
+ {t:"15:45",k:"see",ic:"fa-camera",n:["가우디 광장 연못 반영샷","Reflection shot at Plaça de Gaudí"],lat:41.4053,lng:2.1745,
   d:["성당 북동쪽 작은 공원. 연못에 탄생 파사드가 통째로 비치는, 그 유명한 구도입니다. 무료.","The small park north-east of the basilica. The Nativity façade lands whole in the pond — that photograph. Free."]},
- {t:"13:10",k:"move",ic:"fa-train-subway",n:["메트로 L5 Sagrada Família → Diagonal","Metro L5: Sagrada Família → Diagonal"],nomap:true,
+ {t:"13:20",k:"move",ic:"fa-handshake",n:["El Glop Gaudí 앞 집합 · 도보 4분","Meet in front of El Glop Gaudí · 4 min walk"],nomap:true,
   d:["5분, 3정거장. T-casual 1회 차감.","Five minutes, three stops — one ride off the T-casual."]},
- {t:"13:40",k:"eat",ic:"fa-wine-glass",n:["점심 · Vinitus","Lunch · Vinitus"],lat:41.3900261,lng:2.1640484,pid:"ChIJ3XUCr0K5Z0ARbKq1CqAKgJQ",
+ {t:"12:45",k:"eat",ic:"fa-fire-burner",n:["점심 · El Glop Gaudí (투어 집합 장소)","Lunch · El Glop Gaudí (tour meeting point)"],lat:41.4030754,lng:2.1767836,pid:"ChIJxwZOJVWjpBIRteiF7ny9ZFc",
   hours:["매일 11:00–01:00 · 연중무휴","Daily 11:00–01:00 · never closed"],
   d:["파세이그 데 그라시아 한 블록 뒤. 예약을 안 받아서 13:40쯤 가면 바로 앉을 수 있습니다(14:30 넘으면 줄).","One block behind Passeig de Gràcia. No reservations, so arrive by 13:40 to walk straight in — after 14:30 there's a queue."],
   tip:["★ 꿀대구(bacalao con miel) — 저장하신 메모의 그 메뉴입니다. 감바스 알 아히요, 이베리코 하몽, 문어 갈리시아식도 강력 추천.","★ Bacalao con miel — the honeyed cod you bookmarked. Also gambas al ajillo, jamón ibérico and pulpo a la gallega."],
   tag:"ok",tagl:["일요일 정상 영업","Open on Sundays"]},
- {t:"15:15",k:"see",ic:"fa-building-columns",n:["카사 밀라 (라 페드레라)","Casa Milà (La Pedrera)"],lat:41.3952155,lng:2.1619024,pid:"ChIJ1eGKmZOipBIRah43T2Kjn8Q",
+ {t:"10:30",k:"see",ic:"fa-building-columns",n:["카사 밀라 (라 페드레라)","Casa Milà (La Pedrera)"],lat:41.3952155,lng:2.1619024,pid:"ChIJ1eGKmZOipBIRah43T2Kjn8Q",
   hours:["매일 09:00–23:00 (야간 관람 별도)","Daily 09:00–23:00, night visits separate"],
   d:["직선이 하나도 없는 아파트. 하이라이트는 옥상의 전사 굴뚝들과 다락 포물선 아치입니다. 1시간 20분이면 충분.","An apartment block with no straight lines. The rooftop warrior chimneys and the parabolic attic are the payoff — 80 minutes is enough."],
   tip:["옥상에서 사그라다 파밀리아가 보입니다. 오디오가이드 영어 O.","You can see the Sagrada Família from the roof. Audio guide in English."]},
- {t:"16:45",k:"shop",ic:"fa-bag-shopping",n:["파세이그 데 그라시아 쇼핑","Shopping on Passeig de Gràcia"],lat:41.3925,lng:2.1650,
+ {t:"11:45",k:"shop",ic:"fa-bag-shopping",n:["파세이그 데 그라시아 쇼핑","Shopping on Passeig de Gràcia"],lat:41.3925,lng:2.1650,
   hours:["일요일 12:00–20:00 (관광특구 지정으로 일요일 영업)","Sundays 12:00–20:00 — this strip is a designated tourist zone"],
   d:["바르셀로나는 원래 일요일에 상점이 닫지만, 파세이그 데 그라시아와 카탈루냐 광장 일대는 예외입니다. 저장하신 Desigual·Stradivarius·Bershka 지점이 이 거리에 다 있어요.","Barcelona shops normally close on Sundays — this street and Plaça de Catalunya are the exception. Your saved Desigual, Stradivarius and Bershka branches are all on it."],
   tag:"info",tagl:["일요일 예외 구역","Sunday-trading zone"]},
- {t:"17:45",k:"eat",ic:"fa-mug-hot",n:["간식 · Faborit Casa Amatller","Merienda · Faborit Casa Amatller"],lat:41.3914375,lng:2.164855,pid:"ChIJIwsuTu2ipBIR9f-8rv_gBG8",
+ {t:"17:00",k:"eat",ic:"fa-mug-hot",n:["간식 · Faborit Casa Amatller","Merienda · Faborit Casa Amatller"],lat:41.3914375,lng:2.164855,pid:"ChIJIwsuTu2ipBIR9f-8rv_gBG8",
   hours:["일 08:00–20:30 / 금·토 –21:30","Sun 08:00–20:30, Fri–Sat until 21:30"],
   d:["카사 아마트예르 1층 카페. 야외 파티오 자리에 앉으면 카사 바트요 뒷면이 그대로 보입니다 — 사람 없이 찍히는 각도.","The café inside Casa Amatller. The courtyard tables look straight at the back of Casa Batlló — the angle without the crowd."],
   tip:["진한 스페인식 핫초콜릿 + 아마트예르 초콜릿 봉봉. 기념품용 초콜릿도 여기서.","Thick Spanish hot chocolate with Amatller bonbons — and the souvenir chocolate is here too."]},
- {t:"18:30",k:"see",ic:"fa-dragon",n:["카사 바트요","Casa Batlló"],lat:41.3917,lng:2.164918,pid:"ChIJYUFLSe2ipBIRD04uni940kA",
+ {t:"18:00",k:"see",ic:"fa-dragon",n:["카사 바트요","Casa Batlló"],lat:41.3917,lng:2.164918,pid:"ChIJYUFLSe2ipBIRD04uni940kA",
   hours:["매일 08:30–22:30","Daily 08:30–22:30"],
   d:["용의 등뼈를 얹은 지붕과 뼈처럼 휘어진 발코니. 조명이 켜지는 20:00 전후가 외관 사진에 가장 좋습니다.","A dragon's spine for a roof and bone-shaped balconies. The façade photographs best around 20:00 when the lights come up."],
   tip:["★ AR 태블릿 가이드에 한국어가 있습니다 — 이 커플 조합에 가장 편한 가우디 명소예요. 골드 티켓이면 다락+옥상까지 포함.","★ The AR tablet guide supports Korean as well as English — the friendliest Gaudí house for the two of you. The Gold ticket adds the attic and roof."],
@@ -894,10 +918,10 @@ const DAYS=[
  {t:"08:15",k:"move",ic:"fa-taxi",n:["택시 → BCN 제1터미널","Taxi to BCN Terminal 1"],lat:41.2891331,lng:2.0747619,pid:"ChIJw2hK2XGepBIReN-7Fx_hNUE",
   d:["35분, €40 전후. Vueling·Iberia·Ryanair 모두 T1입니다 — 도착했던 T2가 아니니 주의.","35 minutes, about €40. Vueling, Iberia and Ryanair all use T1 — not the T2 you landed at."],
   tag:"warn",tagl:["T2 아님, T1","T1, not T2"]},
- {t:"10:45",k:"move",ic:"fa-plane-departure",n:["국내선 BCN → SVQ (예매 필요)","Domestic flight BCN → SVQ (to book)"],nomap:true,
+ {t:"09:15",k:"move",ic:"fa-plane-departure",n:["VY2212 BCN T1 → SVQ","VY2212 BCN T1 → SVQ"],nomap:true,
   hours:["비행 1시간 35분","1h 35m in the air"],
   d:["10:30~11:30 출발편을 잡으세요. Vueling이 편수가 가장 많고, 기내 수하물 규정이 티웨이보다 빡빡하니 예매 시 수하물 옵션을 확인하세요.","Aim for a 10:30–11:30 departure. Vueling has the most frequencies; check the cabin-bag allowance, which is tighter than T'way's."],
-  tag:"book",tagl:["아직 미예매","Not booked yet"]},
+  tag:"ok",tagl:["예매완료 · T1 출발","Booked · departs T1"]},
  {t:"12:25",k:"move",ic:"fa-plane-arrival",n:["세비야 공항 (SVQ) 도착","Arrive Seville Airport (SVQ)"],lat:37.4202698,lng:-5.890794,pid:"ChIJuZuEjRxmEg0ROif7oHd-UgE",
   d:["작은 공항이라 수하물이 빨리 나옵니다.","A small airport — bags come out fast."]},
  {t:"13:00",k:"move",ic:"fa-bus",n:["EA 공항버스 또는 택시 → 구시가","Airport bus EA or taxi into the old town"],nomap:true,
@@ -1030,10 +1054,10 @@ const DAYS=[
   hours:["체크아웃 11:00","Check-out 11:00"],d:["정시 체크아웃.","On the dot."]},
  {t:"11:30",k:"move",ic:"fa-bus",n:["EA버스 또는 택시 → SVQ","EA bus or taxi to SVQ"],lat:37.4202698,lng:-5.890794,pid:"ChIJuZuEjRxmEg0ROif7oHd-UgE",
   d:["택시 20분 €25, 버스 35분 €4. 국내선이라 1시간 전 도착이면 충분합니다.","Taxi 20 minutes for €25, bus 35 minutes for €4. An hour before a domestic flight is plenty."]},
- {t:"13:30",k:"move",ic:"fa-plane-departure",n:["국내선 SVQ → BCN (예매 필요)","Domestic flight SVQ → BCN (to book)"],nomap:true,
+ {t:"15:25",k:"move",ic:"fa-plane-departure",n:["VY2227 SVQ → BCN T1","VY2227 SVQ → BCN T1"],nomap:true,
   hours:["비행 1시간 35분 · BCN 제1터미널 도착","1h 35m · lands at BCN Terminal 1"],
   d:["13:00~14:00 출발편을 잡으세요. 이보다 늦으면 마법의 분수가 위태로워집니다.","Take a 13:00–14:00 departure. Later than that and the fountain gets tight."],
-  tag:"book",tagl:["아직 미예매","Not booked yet"]},
+  tag:"ok",tagl:["예매완료 · T1 도착","Booked · arrives T1"]},
  {t:"16:00",k:"move",ic:"fa-taxi",n:["택시 BCN T1 → 그라시아","Taxi: BCN T1 → Gràcia"],nomap:true,d:["35분, €40 전후.","35 minutes, about €40."]},
  {t:"16:45",k:"stay",ic:"fa-house",n:["체크인 · Carrer de Montmany 38","Check in · Carrer de Montmany 38"],lat:41.4047228,lng:2.1598481,pid:"ChIJE_vLn76ipBIRUYmaK47PjyA",
   hours:["체크인 14:00 / 체크아웃 11:00","Check-in 14:00 / Check-out 11:00"],
@@ -1347,6 +1371,10 @@ const KIND = {
 const TAGC = {book:"chip-book",warn:"chip-warn",ok:"chip-ok",info:"chip-info"};
 const t = a => Array.isArray(a) ? a[LANG] : a;
 
+// 일정 항목을 시각순으로 정렬한다 — 소스에서 시간을 고쳐도 표시 순서와 지도 번호가 맞게 유지된다.
+// 전 항목이 08:00~23:50 범위라 문자열 비교로 충분하다 (자정 넘는 항목 없음).
+DAYS.forEach(d => d.items.sort((a,b) => a.t < b.t ? -1 : a.t > b.t ? 1 : 0));
+
 // 모자이크 띠
 document.querySelectorAll('.trencadis').forEach(el=>{
   const n = el.id==='heroStrip' ? 42 : 28;
@@ -1543,7 +1571,53 @@ function drawMap(){
       layer.addLayer(m); bounds.push([it.lat,it.lng]);
     });
   });
+  // 숙소는 날짜 필터와 무관하게 항상 표시한다 — 어디로 돌아가는지가 동선 판단의 기준이라서
+  STAYS.forEach(st=>{
+    const icon = LF.divIcon({className:'',iconSize:[30,30],iconAnchor:[15,15],
+      html:`<div class="pin-home" title="${t(st.n)}">🏠</div>`});
+    layer.addLayer(LF.marker([st.lat,st.lng],{icon,zIndexOffset:1000}).bindPopup(
+      `<div style="min-width:200px;max-width:260px">
+         <div style="font-family:'Space Grotesk',monospace;font-size:11px;color:${st.col};font-weight:700;letter-spacing:.08em">
+           ${LANG?'STAY':'숙소'}</div>
+         <div style="font-weight:700;font-size:14.5px;margin:3px 0 5px">${t(st.n)}</div>
+         <div style="color:#c6cfe2;font-size:12.5px;line-height:1.55">${t(st.dates)}</div>
+         <div style="color:#8894ad;font-size:12px;margin-top:4px">🕐 ${t(st.io)}</div>
+         <a href="${G(st.lat,st.lng,st.pid)}" target="_blank" rel="noopener"
+            style="display:inline-block;margin-top:10px;background:#fff;color:#0a0e1a;padding:6px 12px;
+                   border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">
+           ${LANG?'Open in Google Maps':'구글맵에서 열기'} ↗</a>
+       </div>`));
+    bounds.push([st.lat,st.lng]);
+  });
   if(bounds.length) map.fitBounds(bounds,{padding:[45,45],maxZoom:15});
+}
+
+// ── 지도 옆 일정 패널 ──
+const KICON={see:'📍',eat:'🍽️',shop:'🛍️',move:'🚕',stay:'🏠'};
+function flyTo(lat,lng){
+  if(!map) return;
+  map.setView([lat,lng], Math.max(map.getZoom(),16), {animate:true});
+  document.getElementById('map').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function renderMapSchedule(){
+  const box=document.getElementById('mapSched');
+  const hint=document.getElementById('mapSchedHint');
+  if(!box) return;
+  const days = mapFilter==='all' ? DAYS : DAYS.filter(d=>d.n===+mapFilter);
+  hint.textContent = mapFilter==='all'
+    ? (LANG?'All 8 days. Filter above to narrow.':'8일 전체입니다. 위 버튼으로 좁힐 수 있어요.')
+    : (LANG?'Tap a place to fly the map there.':'장소를 누르면 지도가 그 지점으로 갑니다.');
+  box.innerHTML = days.map(d=>{
+    const rows = d.items.map(it=>{
+      const nm=t(it.n);
+      const label = (!it.nomap && it.lat)
+        ? `<a href="javascript:void(0)" onclick="flyTo(${it.lat},${it.lng})">${nm}</a>`
+        : nm;
+      return `<div class="ms-row"><span class="ms-t">${it.t}</span>
+        <span class="ms-k">${KICON[it.k]||''}</span><span class="ms-n">${label}</span></div>`;
+    }).join('');
+    return `<div class="ms-day" style="color:${d.hex}">DAY ${d.n} · ${d.date} ${t(d.dow)}</div>${rows}`;
+  }).join('');
 }
 function renderMapFilters(){
   const all = `<button class="daytab px-3 py-1.5 text-[12.5px] font-bold ${mapFilter==='all'?'active':''}"
@@ -1552,7 +1626,7 @@ function renderMapFilters(){
     `<button class="daytab px-3 py-1.5 text-[12.5px] font-bold ${mapFilter==String(d.n)?'active':''}"
        style="--dc:${d.hex}" data-f="${d.n}">D${d.n} · ${d.date}</button>`).join('');
   document.querySelectorAll('#mapFilters .daytab').forEach(b=>
-    b.onclick=()=>{ mapFilter=b.dataset.f; renderMapFilters(); drawMap(); renderRouteBox(); });
+    b.onclick=()=>{ mapFilter=b.dataset.f; renderMapFilters(); drawMap(); renderRouteBox(); renderMapSchedule(); });
 }
 function renderRouteBox(){
   const box=document.getElementById('dayRouteBox');
@@ -1786,7 +1860,7 @@ function setLang(l){
 document.getElementById('langToggle').onclick=()=>setLang(LANG ? 0 : 1);
 
 function renderAll(){
-  renderTabs(); renderPanel(); renderMapFilters(); renderRouteBox();
+  renderTabs(); renderPanel(); renderMapFilters(); renderRouteBox(); renderMapSchedule();
   renderFoodFilter(); renderFoodCityChips(); renderFood();
   renderSightCityChips(); renderSights(); renderStays();
   renderCatFilter(); renderCatLegend(); renderGourmet(); renderStyleSwitch();
