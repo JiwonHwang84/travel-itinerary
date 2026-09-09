@@ -385,6 +385,17 @@ img,iframe,canvas{max-width:100%}
 .ms-no{flex:0 0 16px;height:16px;border-radius:5px;display:grid;place-items:center;
   font-family:"Space Grotesk",monospace;font-size:9.5px;font-weight:900;color:#0a0e1a}
 .ms-no-off{background:transparent}
+#foodList{max-height:420px;overflow-y:auto;scrollbar-width:thin}
+#foodList::-webkit-scrollbar{width:6px}
+#foodList::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.fl-city{font-family:"Space Grotesk",monospace;font-size:10.5px;letter-spacing:.1em;font-weight:700;
+  padding:8px 0 4px;position:sticky;top:0;background:var(--bg-2);color:var(--ink-2)}
+.fl-row{display:flex;gap:8px;padding:5px 0;border-top:1px solid var(--line);align-items:baseline}
+.fl-dot{flex:0 0 8px;height:8px;border-radius:50%;margin-top:5px}
+.fl-n{flex:1;font-size:12.5px;line-height:1.45}
+.fl-n a{color:var(--ink-1);text-decoration:none;border-bottom:1px dotted var(--ink-3)}
+.fl-n a:hover{color:#fff;border-bottom-color:#fff}
+.fl-h{display:block;font-size:11px;color:var(--ink-3);margin-top:1px}
 
 /* 타임라인 */
 .tl{position:relative;padding-left:26px}
@@ -593,9 +604,14 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
     <div class="grid lg:grid-cols-[1fr_320px] gap-5 mb-8">
       <div id="foodMap" role="region" aria-label="Food map"></div>
       <div class="surface rounded-2xl p-5 h-fit">
-        <h3 class="font-bold text-[14px] mb-4"><span data-ko>카테고리</span><span data-en>Categories</span></h3>
-        <div id="catLegend" class="space-y-2.5"></div>
-        <p class="text-[12px] muted-2 mt-4"><span data-ko>한 가게가 두 성격을 겸하면(예: 타파스 + 와인) 양쪽 카테고리에 모두 나타납니다.</span><span data-en>Places that do two jobs — tapas and wine, say — appear under both.</span></p>
+        <h3 class="font-bold text-[14px] mb-1"><span data-ko>가게 목록</span><span data-en>The list</span></h3>
+        <p class="text-[11.5px] mb-3" style="color:var(--ink-3)" id="foodListHint"></p>
+        <div id="foodList"></div>
+        <details class="mt-4 text-[12.5px]" style="color:var(--ink-1)">
+          <summary style="cursor:pointer;color:var(--ink-2)"><span data-ko>카테고리 범례</span><span data-en>Category key</span></summary>
+          <div id="catLegend" class="space-y-2.5 mt-3"></div>
+          <p class="text-[12px] muted-2 mt-3"><span data-ko>한 가게가 두 성격을 겸하면(예: 타파스 + 와인) 양쪽 카테고리에 모두 나타납니다.</span><span data-en>Places that do two jobs — tapas and wine, say — show under both.</span></p>
+        </details>
       </div>
     </div>
 
@@ -1797,14 +1813,14 @@ function renderCatFilter(){
       return btn(k, `<i class="fa-solid ${c.ic} mr-1"></i>${c[LANG?'en':'ko']} <span style="opacity:.6">${n}</span>`, c.hex, catFilter===k);
     }).join('');
   document.querySelectorAll('#catFilter .daytab').forEach(b=>
-    b.onclick=()=>{ catFilter=b.dataset.c; renderCatFilter(); renderGourmet(); });
+    b.onclick=()=>{ catFilter=b.dataset.c; renderCatFilter(); renderGourmet(); renderFoodList(); });
 
   document.getElementById('cityFilter').innerHTML =
     [['all',LANG?'Both cities':'두 도시','var(--gold)'],['BCN',t(CITYLBL.BCN),'var(--bcn)'],['SVQ',t(CITYLBL.SVQ),'var(--svq)']]
     .map(([k,l,h])=>`<button class="daytab px-3 py-1.5 text-[12px] font-bold ${cityFilter===k?'active':''}"
         style="--dc:${h}" data-city="${k}">${l}</button>`).join('');
   document.querySelectorAll('#cityFilter .daytab').forEach(b=>
-    b.onclick=()=>{ cityFilter=b.dataset.city; renderCatFilter(); renderGourmet(); });
+    b.onclick=()=>{ cityFilter=b.dataset.city; renderCatFilter(); renderGourmet(); renderFoodList(); });
 }
 
 function renderCatLegend(){
@@ -1856,6 +1872,28 @@ function initFoodMap(){
   flayer = LF.layerGroup().addTo(fmap);
   fmap.on('click',()=>fmap.scrollWheelZoom.enable());
   drawFoodMap();
+}
+function flyFood(lat,lng){
+  if(!fmap) return;
+  fmap.setView([lat,lng], Math.max(fmap.getZoom(),16), {animate:true});
+  document.getElementById('foodMap').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function renderFoodList(){
+  const box=document.getElementById('foodList'); if(!box) return;
+  const list=gourmetList();
+  document.getElementById('foodListHint').textContent = LANG
+    ? `${list.length} places — tap one to fly the map there.`
+    : `${list.length}곳 — 누르면 지도가 그 가게로 갑니다.`;
+  const cities=[...new Set(list.map(f=>f.c))];
+  box.innerHTML = cities.map(c=>{
+    const rows=list.filter(f=>f.c===c).map(f=>{
+      const cat=CATS[f.cat]||{hex:'var(--ink-3)'};
+      return `<div class="fl-row"><span class="fl-dot" style="background:${cat.hex}"></span>
+        <span class="fl-n"><a href="javascript:void(0)" onclick="flyFood(${f.lat},${f.lng})">${t(f.n)}</a>
+        <span class="fl-h">${t(f.h)}</span></span></div>`;
+    }).join('');
+    return `<div class="fl-city">${c==='BCN'?(LANG?'BARCELONA':'바르셀로나'):(LANG?'SEVILLE':'세비야')}</div>${rows}`;
+  }).join('');
 }
 function drawFoodMap(){
   if(!flayer) return;
@@ -1917,7 +1955,7 @@ function renderAll(){
   renderTabs(); renderPanel(); renderMapFilters(); renderRouteBox(); renderMapSchedule();
   renderFoodFilter(); renderFoodCityChips(); renderFood();
   renderSightCityChips(); renderSights(); renderStays();
-  renderCatFilter(); renderCatLegend(); renderGourmet(); renderStyleSwitch();
+  renderCatFilter(); renderCatLegend(); renderGourmet(); renderFoodList(); renderStyleSwitch();
   if(map) drawMap();
   if(map && !tilesOK && document.getElementById('tileBanner')){   // 언어 전환 시 배너 문구도 갱신
     hideTileBanner(); showTileBanner();
