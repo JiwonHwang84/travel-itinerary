@@ -337,6 +337,9 @@ img,iframe,canvas{max-width:100%}
 
 /* 지도 */
 #map,#foodMap{height:min(72vh,620px);border-radius:20px;overflow:hidden;z-index:1;border:1px solid var(--line)}
+/* 옆 패널을 지도와 같은 높이로. 목록만 늘어나고 나머지는 고정 */
+.map-side{height:min(72vh,620px);display:flex;flex-direction:column}
+.map-side>[id$="Sched"],.map-side>#foodList{flex:1 1 auto;min-height:0;overflow-y:auto}
 .leaflet-container{
   background:#0d1424;font-family:"Noto Sans KR",sans-serif;
   background-image:
@@ -365,6 +368,10 @@ img,iframe,canvas{max-width:100%}
 }
 .pin span{transform:rotate(45deg);font-size:11px;font-weight:900;color:#0a0e1a;font-family:"Space Grotesk",sans-serif}
 /* 역·공항 마커 — 숙소(금색)와 구분되게 파란 테두리 */
+.pin-me{
+  width:18px;height:18px;border-radius:50%;background:#2ee6a8;
+  box-shadow:0 0 0 3px rgba(46,230,168,.28),0 0 0 1px #0a0e1a;
+}
 .pin-stn{
   width:28px;height:28px;border-radius:9px;background:#fff;display:grid;place-items:center;
   font-size:14px;line-height:1;box-shadow:0 0 0 1px var(--line);border:2px solid var(--bcn);
@@ -375,7 +382,7 @@ img,iframe,canvas{max-width:100%}
   font-size:15px;line-height:1;box-shadow:0 0 0 1px var(--line);border:2px solid var(--gold);
 }
 /* 지도 옆 일정 패널 */
-#mapSched{max-height:420px;overflow-y:auto;scrollbar-width:thin}
+#mapSched{overflow-y:auto;scrollbar-width:thin}
 #mapSched::-webkit-scrollbar{width:6px}
 #mapSched::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
 .ms-day{font-family:"Space Grotesk",monospace;font-size:10.5px;letter-spacing:.1em;font-weight:700;
@@ -390,7 +397,7 @@ img,iframe,canvas{max-width:100%}
 .ms-no{flex:0 0 16px;height:16px;border-radius:5px;display:grid;place-items:center;
   font-family:"Space Grotesk",monospace;font-size:9.5px;font-weight:900;color:#0a0e1a}
 .ms-no-off{background:transparent}
-#foodList{max-height:420px;overflow-y:auto;scrollbar-width:thin}
+#foodList{overflow-y:auto;scrollbar-width:thin}
 #foodList::-webkit-scrollbar{width:6px}
 #foodList::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
 .fl-city{font-family:"Space Grotesk",monospace;font-size:10.5px;letter-spacing:.1em;font-weight:700;
@@ -441,7 +448,7 @@ html[lang="en"] [data-en]{display:inline}
 html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-en],html[lang="en"] td[data-en],html[lang="en"] h1[data-en],html[lang="en"] h2[data-en],html[lang="en"] h3[data-en],html[lang="en"] span.blk[data-en]{display:block}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-@media (max-width:640px){#map,#foodMap{height:62vh}}
+@media (max-width:640px){#map,#foodMap{height:62vh}.map-side{height:auto;max-height:none}.map-side>[id$="Sched"],.map-side>#foodList{max-height:50vh}}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
 </style>
 </head>
@@ -572,11 +579,16 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
     <p class="muted text-[14px] mb-6"><span data-ko>날짜 버튼으로 필터링하고, 핀을 눌러 구글맵으로 바로 이동하세요.</span><span data-en>Filter by day, then tap a pin to jump straight into Google Maps.</span></p>
 
     <div class="flex flex-wrap gap-2 mb-3" id="mapFilters"></div>
-    <div class="flex flex-wrap gap-2 items-center mb-5" id="styleSwitch"></div>
+    <div class="flex flex-wrap gap-2 items-center mb-5">
+      <div class="flex flex-wrap gap-2 items-center" id="styleSwitch"></div>
+      <button class="daytab px-3 py-1.5 text-[12.5px] font-bold" style="--dc:#2ee6a8" onclick="locateMe('map')">
+        <span data-ko>📍 내 위치</span><span data-en>📍 My location</span></button>
+      <span class="text-[12px]" id="geoMsg" style="color:var(--ink-3)"></span>
+    </div>
 
     <div class="grid lg:grid-cols-[1fr_320px] gap-5">
       <div id="map" role="region" aria-label="Itinerary map"></div>
-      <div class="surface rounded-2xl p-5 h-fit">
+      <div class="surface rounded-2xl p-5 map-side">
         <h3 class="font-bold text-[14px] mb-1"><span data-ko>일정</span><span data-en>Schedule</span></h3>
         <p class="text-[11.5px] mb-3" style="color:var(--ink-3)" id="mapSchedHint"></p>
         <div id="mapSched"></div>
@@ -609,19 +621,19 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
 
     <div class="flex flex-wrap gap-2 mb-3" id="catFilter"></div>
     <div class="flex flex-wrap gap-2 mb-3" id="cityFilter"></div>
-    <div class="flex flex-wrap gap-2 items-center mb-5" id="styleSwitch2"></div>
+    <div class="flex flex-wrap gap-2 items-center mb-5">
+      <div class="flex flex-wrap gap-2 items-center" id="styleSwitch2"></div>
+      <button class="daytab px-3 py-1.5 text-[12.5px] font-bold" style="--dc:#2ee6a8" onclick="locateMe('foodMap')">
+        <span data-ko>📍 내 위치</span><span data-en>📍 My location</span></button>
+      <span class="text-[12px]" id="geoMsg2" style="color:var(--ink-3)"></span>
+    </div>
 
     <div class="grid lg:grid-cols-[1fr_320px] gap-5">
       <div id="foodMap" role="region" aria-label="Food map"></div>
-      <div class="surface rounded-2xl p-5 h-fit">
+      <div class="surface rounded-2xl p-5 map-side">
         <h3 class="font-bold text-[14px] mb-1"><span data-ko>가게 목록</span><span data-en>The list</span></h3>
         <p class="text-[11.5px] mb-3" style="color:var(--ink-3)" id="foodListHint"></p>
         <div id="foodList"></div>
-        <details class="mt-4 text-[12.5px]" style="color:var(--ink-1)">
-          <summary style="cursor:pointer;color:var(--ink-2)"><span data-ko>카테고리 범례</span><span data-en>Category key</span></summary>
-          <div id="catLegend" class="space-y-2.5 mt-3"></div>
-          <p class="text-[12px] muted-2 mt-3"><span data-ko>한 가게가 두 성격을 겸하면(예: 타파스 + 와인) 양쪽 카테고리에 모두 나타납니다.</span><span data-en>Places that do two jobs — tapas and wine, say — show under both.</span></p>
-        </details>
       </div>
     </div>
     <div class="surface rounded-2xl p-5 md:p-6 mt-4 mb-8">
@@ -1627,6 +1639,34 @@ function initMap(){
   drawMap();
 }
 
+// ── 내 위치 ──
+// HTTPS 에서만 동작한다(GitHub Pages 는 HTTPS 라 문제없음). 파일을 직접 열면 막힌다.
+const MEL={};                       // 지도별 내 위치 레이어
+function locateMe(which){
+  const m = which==='map' ? map : fmap;
+  const msg = document.getElementById(which==='map' ? 'geoMsg' : 'geoMsg2');
+  const say = s => { if(msg) msg.textContent = s; };
+  if(!m){ say(LANG?'Map not ready.':'지도가 아직 안 떴습니다.'); return; }
+  if(!navigator.geolocation){ say(LANG?'This browser has no location support.':'이 브라우저는 위치 기능이 없습니다.'); return; }
+  say(LANG?'Locating…':'위치 찾는 중…');
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const {latitude:la,longitude:ln,accuracy:acc}=pos.coords;
+    if(MEL[which]){ try{ m.removeLayer(MEL[which]); }catch(e){} }
+    const g=LF.layerGroup();
+    if(acc && acc<3000) g.addLayer(LF.circle([la,ln],{radius:acc,color:'#2ee6a8',weight:1,fillColor:'#2ee6a8',fillOpacity:.08}));
+    g.addLayer(LF.marker([la,ln],{icon:LF.divIcon({className:'',iconSize:[18,18],iconAnchor:[9,9],html:'<div class="pin-me"></div>'}),zIndexOffset:2000})
+      .bindPopup(`<b>${LANG?'You are here':'현재 위치'}</b><br><span style="color:#8894ad;font-size:12px">${LANG?'accuracy':'오차'} ±${Math.round(acc)}m</span>`));
+    g.addTo(m); MEL[which]=g;
+    m.setView([la,ln], Math.max(m.getZoom(),16), {animate:true});
+    say(`${LANG?'Found':'찾았습니다'} · ±${Math.round(acc)}m`);
+  }, err=>{
+    const t2 = err.code===1 ? (LANG?'Location permission denied.':'위치 권한이 거부됐습니다. 브라우저 설정에서 허용해주세요.')
+             : err.code===2 ? (LANG?'Position unavailable.':'위치를 못 찾았습니다. 실내면 밖에서 다시 시도하세요.')
+             : (LANG?'Timed out.':'시간 초과입니다. 다시 눌러보세요.');
+    say(t2);
+  }, {enableHighAccuracy:true, timeout:10000, maximumAge:30000});
+}
+
 function drawMap(){
   if(!layer) return;
   layer.clearLayers();
@@ -1758,9 +1798,7 @@ function renderMapFilters(){
 function renderRouteBox(){
   const box=document.getElementById('dayRouteBox');
   if(mapFilter==='all'){
-    box.innerHTML=`<p class="text-[12.5px]" style="color:var(--ink-3)">${
-      LANG?'Pick a single day above to get its full Google Maps route.'
-       :'위에서 날짜 하나를 고르면 그날 전체 경로 길찾기 버튼이 나타납니다.'}</p>`;
+    box.innerHTML='';
   } else {
     box.innerHTML = dayRouteBtn(DAYS.find(d=>d.n===+mapFilter),false);
   }
@@ -1881,7 +1919,8 @@ function renderCatFilter(){
 }
 
 function renderCatLegend(){
-  document.getElementById('catLegend').innerHTML = Object.entries(CATS).map(([k,c])=>{
+  const el=document.getElementById('catLegend'); if(!el) return;
+  el.innerHTML = Object.entries(CATS).map(([k,c])=>{
     const n=FOOD.filter(f=>f.cat===k||(f.sub||[]).includes(k)).length;
     return `<div class="flex items-center gap-2.5 text-[13px]">
       <span style="width:11px;height:11px;border-radius:50%;background:${c.hex};flex-shrink:0"></span>
