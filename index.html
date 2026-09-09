@@ -758,32 +758,6 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
         </ul>
       </div>
     </div>
-
-    <div class="surface rounded-2xl p-5 md:p-7" style="border-left:3px solid var(--gold)">
-      <h3 class="font-bold text-[16px] mb-3"><i class="fa-solid fa-key mr-2" style="color:var(--gold)"></i><span data-ko>이 파일에 구글 API 키가 필요한가요?</span><span data-en>Does this file need a Google API key?</span></h3>
-      <p class="text-[14px] mb-4" style="color:var(--ink-1)"><span data-ko><b class="text-white">아니요. 지금 이대로 열면 바로 작동합니다.</b> 아래가 이유입니다.</span><span data-en><b class="text-white">No — it works as-is.</b> Here's why.</span></p>
-      <div class="grid md:grid-cols-2 gap-4">
-        <div class="surface-2 rounded-xl p-4">
-          <p class="chip chip-ok mb-2"><span data-ko>키 없이 되는 것</span><span data-en>Works without a key</span></p>
-          <ul class="space-y-2 text-[13px]" style="color:var(--ink-1)">
-            <li><span data-ko>지도 표시 — Leaflet + OpenStreetMap(무료, 키 불필요)</span><span data-en>The map itself — Leaflet + OpenStreetMap, free, no key</span></li>
-            <li><span data-ko>각 장소 <b class="text-white">구글맵 열기</b> 버튼 — 구글맵 공식 딥링크 URL</span><span data-en>Every <b class="text-white">Open in Google Maps</b> button — official deep-link URLs</span></li>
-            <li><span data-ko>날짜별 <b class="text-white">전체 경로 길찾기</b> — 구글맵 길찾기 딥링크(경유지 포함)</span><span data-en>The <b class="text-white">Route this day</b> links — Google Maps directions with waypoints</span></li>
-          </ul>
-        </div>
-        <div class="surface-2 rounded-xl p-4">
-          <p class="chip chip-book mb-2"><span data-ko>키가 필요한 경우</span><span data-en>When you'd need a key</span></p>
-          <p class="text-[13px] mb-2" style="color:var(--ink-1)"><span data-ko>배경 지도 타일 자체를 <b class="text-white">구글 지도 그림</b>으로 바꾸고 싶을 때만 필요합니다.</span><span data-en>Only if you want the background tiles to be <b class="text-white">Google's actual map</b>.</span></p>
-          <ol class="space-y-1.5 text-[13px] list-decimal pl-4" style="color:var(--ink-1)">
-            <li><span data-ko>Google Cloud Console에서 프로젝트 생성</span><span data-en>Create a project in Google Cloud Console</span></li>
-            <li><span data-ko><b class="text-white">Maps JavaScript API</b> 사용 설정</span><span data-en>Enable the <b class="text-white">Maps JavaScript API</b></span></li>
-            <li><span data-ko>결제 카드 등록 (월 $200 무료 크레딧 → 개인 사용은 사실상 무료)</span><span data-en>Add a billing card ($200 free monthly credit covers personal use)</span></li>
-            <li><span data-ko>API 키 발급 후 HTTP 리퍼러 제한 걸기</span><span data-en>Create the key and restrict it by HTTP referrer</span></li>
-          </ol>
-          <p class="text-[12.5px] muted mt-3"><span data-ko>키를 받으시면 알려주세요. 같은 데이터로 구글맵 버전을 다시 만들어 드리겠습니다.</span><span data-en>Send me the key and I'll rebuild this on Google Maps with the same data.</span></p>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1282,11 +1256,40 @@ const CATS={
  churros:{ko:"츄러스 · 초콜라테",en:"Churros & chocolate",hex:"#ff8c42", ic:"fa-mug-hot"},
  cafe  :{ko:"카페 · 디저트",   en:"Café & dessert",   hex:"#38e0d0", ic:"fa-cake-candles"},
  gelato:{ko:"젤라또 · 빙과",   en:"Gelato & frozen",  hex:"#ff5d8f", ic:"fa-ice-cream"},
- bakery:{ko:"베이커리 · 시장", en:"Bakery & market",  hex:"#2ee6a8", ic:"fa-bread-slice"}
+ bakery:{ko:"베이커리 · 시장", en:"Bakery & market",  hex:"#2ee6a8", ic:"fa-bread-slice"},
+ shop  :{ko:"쇼핑",            en:"Shopping",         hex:"#00b4d8", ic:"fa-bag-shopping"}
 };
 const CITYLBL={BCN:["바셀","Barcelona"],SVQ:["세비야","Seville"]};
 
 /* ── 주요 관광지 운영·휴무 ── */
+// 쇼핑 — 미식지도에 같이 얹는다. cat:"shop" 이라 필터로 따로 볼 수 있다.
+FOOD.push(
+ {n:["파세이그 데 그라시아","Passeig de Gràcia"],c:"BCN",cat:"shop",sub:[],a:["에이샴플레","Eixample"],
+  h:["대체로 10:00–21:00 (일요일 상당수 휴무)","Mostly 10:00–21:00 · many closed Sunday"],closed:[],
+  o:["명품·모더니즘 건축이 같은 거리에. 09.20 저녁 일정","Luxury and Modernisme on one street — on the 20th"],lat:41.3925,lng:2.1650},
+ {n:["카탈루냐 광장 일대","Plaça de Catalunya area"],c:"BCN",cat:"shop",sub:[],a:["센트로","Centre"],
+  h:["대체로 10:00–21:00","Mostly 10:00–21:00"],closed:[],
+  o:["Bershka·Stradivarius·Desigual·Primark 밀집. 09.26 오전","Bershka, Stradivarius, Desigual, Primark — morning of the 26th"],lat:41.3870,lng:2.1700},
+ {n:["Primark · 카탈루냐 광장점","Primark · Plaça Catalunya"],c:"BCN",cat:"shop",sub:[],a:["카탈루냐 광장","Plaça Catalunya"],
+  h:["월–토 10:00–22:00","Mon–Sat 10:00–22:00"],closed:[],
+  o:["가성비 기념품·기내용 옷","Cheap souvenirs and something to fly home in"],lat:41.3866,lng:2.1699},
+ {n:["La Manual Alpargatera","La Manual Alpargatera"],c:"BCN",cat:"shop",sub:[],a:["고딕 지구","Gothic Quarter"],
+  h:["월–토 09:30–20:00 (일 휴무)","Mon–Sat 09:30–20:00 · closed Sun"],closed:["일","Sun"],
+  o:["1940년부터 수제 에스파드리유. 발 재고 그 자리에서 맞춰줍니다","Hand-made espadrilles since 1940 — measured on the spot"],lat:41.3800,lng:2.1757},
+ {n:["산타 카테리나 시장","Santa Caterina Market"],c:"BCN",cat:"shop",sub:["bakery"],a:["보른","El Born"],
+  h:["월–토 07:30–15:30 (일 휴무)","Mon–Sat 07:30–15:30 · closed Sun"],closed:["일","Sun"],
+  o:["보케리아보다 관광객이 적고 물건이 낫습니다. 물결 지붕이 랜드마크","Fewer tourists and better produce than the Boqueria; the wave roof is the landmark"],lat:41.3872451,lng:2.1776648},
+ {n:["트리아나 도자기 거리 (Calle Alfarería)","Triana ceramics street"],c:"SVQ",cat:"shop",sub:[],a:["트리아나","Triana"],
+  h:["대체로 10:00–14:00 / 17:00–20:30","Mostly 10:00–14:00 / 17:00–20:30"],closed:[],
+  o:["아줄레주 타일 공방. 낱장은 가볍고 깨지지 않게 포장해줍니다. 09.24 오전","Azulejo workshops — single tiles travel well. Morning of the 24th"],lat:37.3845,lng:-6.0032},
+ {n:["시에르페스 · 라 캄파나 거리","Calle Sierpes & La Campana"],c:"SVQ",cat:"shop",sub:[],a:["센트로","Centre"],
+  h:["월–토 10:00–14:00 / 17:00–21:00","Mon–Sat 10:00–14:00 / 17:00–21:00"],closed:[],
+  o:["세비야 보행자 쇼핑 축. 올리브 오일·피멘톤·부채","Seville's pedestrian shopping spine — olive oil, pimentón, fans"],lat:37.3915,lng:-5.9955},
+ {n:["메르카도 데 트리아나 (식재료)","Mercado de Triana"],c:"SVQ",cat:"shop",sub:["bakery"],a:["트리아나","Triana"],
+  h:["월–토 09:00–24:00 / 일 09:00–17:00","Mon–Sat 09:00–24:00 · Sun 09:00–17:00"],closed:[],
+  o:["올리브 오일·피멘톤·셰리 식초를 여기서. 🔴 액체는 위탁수하물","Olive oil, pimentón, sherry vinegar. 🔴 Liquids go in checked bags"],lat:37.3838,lng:-6.0018}
+);
+
 const SIGHTS=[
 {n:["사그라다 파밀리아","Sagrada Família"],c:"BCN",
  h:["4–9월 월–금 09:00–20:00 / 토 09:00–18:00 / 일 10:30–20:00","Apr–Sep Mon–Fri 09:00–20:00 · Sat 09:00–18:00 · Sun 10:30–20:00"],
