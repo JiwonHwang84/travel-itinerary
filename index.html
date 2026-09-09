@@ -365,6 +365,11 @@ img,iframe,canvas{max-width:100%}
   display:grid;place-items:center;box-shadow:0 0 0 1px var(--line);border:2px solid rgba(255,255,255,.85);
 }
 .pin span{transform:rotate(45deg);font-size:11px;font-weight:900;color:#0a0e1a;font-family:"Space Grotesk",sans-serif}
+/* 역·공항 마커 — 숙소(금색)와 구분되게 파란 테두리 */
+.pin-stn{
+  width:28px;height:28px;border-radius:9px;background:#fff;display:grid;place-items:center;
+  font-size:14px;line-height:1;box-shadow:0 0 0 1px var(--line);border:2px solid var(--bcn);
+}
 /* 숙소 마커 — 일정 핀과 확실히 구분되게 사각형 + 집 이모지 */
 .pin-home{
   width:30px;height:30px;border-radius:9px;background:#fff;display:grid;place-items:center;
@@ -585,7 +590,7 @@ html[lang="en"] div[data-en],html[lang="en"] p[data-en],html[lang="en"] li[data-
           <summary style="cursor:pointer;color:var(--ink-2)"><span data-ko>지도 사용법</span><span data-en>How to use it</span></summary>
           <ul class="space-y-2.5 mt-3">
             <li class="flex gap-2.5"><span style="color:var(--gold)">①</span><span data-ko>핀 색 = 날짜. 숫자는 그날의 방문 순서입니다.</span><span data-en>Pin colour = day. The number is that day's stop order.</span></li>
-            <li class="flex gap-2.5"><span style="color:var(--gold)">🏠</span><span data-ko><b class="text-white">집 아이콘은 숙소</b>입니다. 3곳 모두 항상 표시됩니다.</span><span data-en><b class="text-white">House icons are your flats</b> — all three always show.</span></li>
+            <li class="flex gap-2.5"><span style="color:var(--gold)">🏠</span><span data-ko><b class="text-white">🏠 집은 숙소, 🚉 기차는 역, ✈️ 는 공항</b>입니다. 그날 실제로 쓰는 것만 뜹니다.</span><span data-en><b class="text-white">🏠 flats, 🚉 stations, ✈️ airports</b> — only the ones that day actually uses.</span></li>
             <li class="flex gap-2.5"><span style="color:var(--gold)">②</span><span data-ko>핀을 누르면 영업시간·추천메뉴와 <b class="text-white">구글맵 열기</b> 버튼이 뜹니다.</span><span data-en>Tap a pin for hours, what to order, and an <b class="text-white">Open in Google Maps</b> button.</span></li>
             <li class="flex gap-2.5"><span style="color:var(--gold)">③</span><span data-ko>옆 일정에서 장소를 누르면 지도가 그 지점으로 이동합니다.</span><span data-en>Tap a place in the schedule to fly the map to it.</span></li>
           </ul>
@@ -1322,6 +1327,22 @@ FOOD.push(
   o:["올리브 오일·피멘톤·셰리 식초를 여기서. 🔴 액체는 위탁수하물","Olive oil, pimentón, sherry vinegar. 🔴 Liquids go in checked bags"],lat:37.3838,lng:-6.0018}
 );
 
+// 역·공항 — 그날 실제로 쓰는 것만 지도에 띄운다
+const STATIONS=[
+ {e:"🚉",n:["바르셀로나 산츠 역","Barcelona Sants"],days:[3],lat:41.3792,lng:2.1400,
+  d:["지로나행 고속열차 출발·도착. 09.21 왕복.","High-speed trains to Girona — both legs on 21 Sep."]},
+ {e:"🚉",n:["지로나 역","Girona station"],days:[3],lat:41.9791,lng:2.8163,
+  d:["구시가까지 도보 20분. 09.21 왕복.","Twenty minutes on foot to the old town."]},
+ {e:"🚉",n:["Barcelona-Passeig de Gràcia 역","Barcelona-Passeig de Gràcia"],days:[3],lat:41.3917,lng:2.1650,
+  d:["저장 목록에 있던 역. 산츠 대신 여기서 지로나행을 타도 되고, <b>숙소에서 더 가깝습니다</b>. 다만 편수가 산츠보다 적으니 예매 때 확인하세요.","The station you saved. Girona trains also stop here and it is closer to the flat, though fewer services call — check when booking."]},
+ {e:"✈️",n:["BCN 제2터미널 (T2)","BCN Terminal 2"],days:[1,8],lat:41.3033401,lng:2.076845,
+  d:["한국 왕복편(TW0407/TW0408) 터미널. 09.19 도착 · 09.26 출발.","The Incheon flights use T2 — arrival on the 19th, departure on the 26th."]},
+ {e:"✈️",n:["BCN 제1터미널 (T1)","BCN Terminal 1"],days:[4,7],lat:41.2891331,lng:2.0747619,
+  d:["부엘링 국내선 터미널. 09.22 출발(VY2212) · 09.25 도착(VY2227). 🔴 한국행 T2 와 다릅니다.","Vueling's domestic terminal. 🔴 Not the same as the T2 you fly home from."]},
+ {e:"✈️",n:["세비야 공항 (SVQ)","Seville Airport"],days:[4,7],lat:37.4202698,lng:-5.890794,
+  d:["구시가까지 택시 15분. 09.22 도착 · 09.25 출발.","Fifteen minutes by taxi to the old town."]}
+];
+
 const SIGHTS=[
 {n:["사그라다 파밀리아","Sagrada Família"],c:"BCN",
  h:["4–9월 월–금 09:00–20:00 / 토 09:00–18:00 / 일 10:30–20:00","Apr–Sep Mon–Fri 09:00–20:00 · Sat 09:00–18:00 · Sun 10:30–20:00"],
@@ -1656,6 +1677,24 @@ function drawMap(){
   // 거리로 거르면 같은 도시의 다른 숙소까지 떠서, 그날 안 묵는 집이 지도에 남는다.
   const shown = mapFilter==='all' ? STAYS
               : STAYS.filter(st => (st.days||[]).includes(+mapFilter));
+  // 역·공항도 그날 쓰는 것만
+  (mapFilter==='all' ? STATIONS : STATIONS.filter(x=>(x.days||[]).includes(+mapFilter)))
+   .forEach(st=>{
+    const icon = LF.divIcon({className:'',iconSize:[28,28],iconAnchor:[14,14],
+      html:`<div class="pin-stn" title="${t(st.n)}">${st.e}</div>`});
+    layer.addLayer(LF.marker([st.lat,st.lng],{icon,zIndexOffset:900}).bindPopup(
+      `<div style="min-width:200px;max-width:260px">
+         <div style="font-family:'Space Grotesk',monospace;font-size:11px;color:var(--bcn);font-weight:700;letter-spacing:.08em">
+           ${st.e==="✈️"?(LANG?'AIRPORT':'공항'):(LANG?'STATION':'역')}</div>
+         <div style="font-weight:700;font-size:14.5px;margin:3px 0 5px">${t(st.n)}</div>
+         <div style="color:#c6cfe2;font-size:12.5px;line-height:1.55">${t(st.d)}</div>
+         <a href="${G(st.lat,st.lng)}" target="_blank" rel="noopener"
+            style="display:inline-block;margin-top:10px;background:#fff;color:#0a0e1a;padding:6px 12px;
+                   border-radius:8px;font-size:12px;font-weight:700;text-decoration:none">
+           ${LANG?'Open in Google Maps':'구글맵에서 열기'} ↗</a>
+       </div>`));
+    bounds.push([st.lat,st.lng]);
+  });
   shown.forEach(st=>{
     const icon = LF.divIcon({className:'',iconSize:[30,30],iconAnchor:[15,15],
       html:`<div class="pin-home" title="${t(st.n)}">🏠</div>`});
