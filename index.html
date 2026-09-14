@@ -944,14 +944,11 @@ const DAYS=[
   d:["약 40분. 왕복 표를 미리 사두면 이 시각에 쫓기지 않습니다.","About 40 minutes. Buy the return ahead so this hour is not a scramble."]},
  {t:"20:20",k:"move",ic:"fa-train-subway",n:["산츠 → 라발 (메트로 L3 Liceu)","Sants to Raval (Metro L3 Liceu)"],lat:41.3806,lng:2.1735,nomap:true,
   d:["약 20분. Bar Cañete 가 라발이라 Liceu 에서 내려 도보 5분입니다. 예약까지 여유가 있으니 람블라를 잠깐 걸어도 됩니다.","About twenty minutes. Cañete is in Raval, five minutes from Liceu — there is time to wander La Rambla first."]},
- {t:"21:15",k:"eat",ic:"fa-shrimp",n:["저녁 · Bar Cañete (21:15 예약)","Dinner · Bar Cañete (21:15 booking)"],lat:41.3791528,lng:2.173125,pid:"ChIJGcsrQViipBIRJ6yTr6bnLZo",
+ {t:"22:15",k:"eat",ic:"fa-shrimp",n:["저녁 · Bar Cañete (22:15 예약)","Dinner · Bar Cañete (22:15 booking)"],lat:41.3791528,lng:2.173125,pid:"ChIJGcsrQViipBIRJ6yTr6bnLZo",
   hours:["월–토 13:00–24:00 (일 휴무)","Mon–Sat 13:00–24:00 (closed Sun)"],
-  d:["✅ <b>21:15 예약을 남기세요.</b> 같이 잡으신 15:30 은 그 시각에 <b>지로나 대성당</b>에 있어서 불가능합니다 — 기차로 100km 떨어진 곳이에요. 19:15 기차로 19:55 산츠 도착, 라발까지 20분이니 21:15 은 여유 있습니다.","✅ <b>Keep the 21:15.</b> The 15:30 you also booked is impossible — you'll be at Girona Cathedral, 100 km away. The 19:15 train lands at Sants at 19:55 and Raval is twenty minutes on."],
+  d:["✅ <b>22:15 예약을 남기세요.</b> 같이 잡으신 15:30 은 그 시각에 <b>지로나 대성당</b>에 있어서 불가능합니다 — 기차로 100km 떨어진 곳이에요. 19:15 기차로 19:55 산츠 도착이니 22:15 은 넉넉합니다. 월–토 24:00 까지라 마감 1시간 45분 전 입장입니다.","✅ <b>Keep the 22:15.</b> The 15:30 you also booked is impossible — you'll be at Girona Cathedral, 100 km away. The 19:15 train lands at Sants at 19:55, so 22:15 is comfortable; they serve till midnight."],
   tip:["1930년대부터 있는 집이고 이 여행에서 <b>가장 제대로 먹는 자리</b>입니다. 시킬 것: croquetas de jamón(하몽 크로케타), gambas a la plancha(새우 철판구이), pulpo a la brasa(문어 숯불구이), tortilla abierta de gamba(반숙 새우 오믈렛), 그리고 pa amb tomàquet 은 필수.","Going since the 1930s and the best meal of this trip. Order the ham croquettes, gambas a la plancha, charred octopus, the open prawn omelette — and pa amb tomàquet, always."],
-  tag:"ok",tagl:["예약완료 21:15","Booked 21:15"]},
- {t:"22:30",k:"see",ic:"fa-martini-glass",n:["(선택) 루프탑 바 · Lamaro Hotel (구 Hotel Colón)","(Optional) Rooftop bar · Lamaro Hotel"],lat:41.3840,lng:2.1762,
-  d:["바르셀로나 대성당이 정면으로 보이는 루프탑입니다. 저장 목록에 있던 곳 — 오늘은 이미 긴 하루라 <b>체력 남으면</b>만 가세요.","A rooftop looking straight at the cathedral. It was on your saved list — but today is long, so go only if you have the legs."],
-  tag:"info",tagl:["체력 남으면","Only if you have energy"]},
+  tag:"ok",tagl:["예약완료 22:15","Booked 22:15"]},
  {t:"23:30",k:"stay",ic:"fa-taxi",n:["택시 숙소 복귀","Taxi home"],lat:41.4009872,lng:2.1641012,nomap:true,
   d:["오늘 도보 약 7.5km. 내일은 09:15 비행기라 06:30에 나가야 합니다 — 짐 미리 싸두고 일찍 자세요.","About 7.5 km walked. Tomorrow's flight is 09:15 and you leave at 06:30 — pack tonight and sleep early."]}
  ]},
@@ -1677,8 +1674,10 @@ function drawMap(){
   DAYS.forEach(d=>{
     if(mapFilter!=='all' && +mapFilter!==d.n) return;
 
-    // 그날의 이동 경로를 점선으로 — 타일이 없어도 동선이 보이도록
-    const path = d.items.filter(i=>!i.nomap).map(i=>[i.lat,i.lng]);
+    // 그날의 이동 경로를 점선으로 — 타일이 없어도 동선이 보이도록.
+    // nomap 항목(택시·메트로·기차·비행)도 좌표가 있으면 선에 넣는다.
+    // 그래야 역·공항까지 어떻게 가는지가 선으로 이어진다.
+    const path = d.items.filter(i=>i.lat).map(i=>[i.lat,i.lng]);
     if(path.length>1){
       layer.addLayer(LF.polyline(path,{color:d.hex,weight:2.5,opacity:.7,dashArray:'7 7'}));
       layer.addLayer(LF.polyline(path,{color:d.hex,weight:11,opacity:.10}));
